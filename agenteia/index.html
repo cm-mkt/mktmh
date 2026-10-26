@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102b4c">
+  <meta name="description" content="Sistema de marketing, IA y ventas híbridas de Machinery Hunters: mapa visual de estrategia, flujos, responsables y validación del piloto.">
+  <title>Machinery Hunters · Marketing + IA + Ventas · Mapa visual</title>
+  <style>
+    :root{--n:#0b1f37;--n2:#12385b;--mh:#134a88;--bright:#2374b9;--o:#f18c26;--opale:#fff1df;--white:#fff;--paper:#f3f7fb;--ink:#142d48;--muted:#58718b;--line:#dbe6ef;--green:#138263;--softblue:#eaf3fb;--shadow:0 16px 48px rgba(16,52,88,.075)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px}
+    body{margin:0;font-family:Inter,"Avenir Next",Avenir,"Segoe UI",Arial,sans-serif;background:#f4f8fb;color:var(--ink);line-height:1.58;font-size:14px}
+    button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid var(--o);outline-offset:3px}
+    a{text-decoration:none;color:var(--mh)}a:hover{text-decoration:underline}h1,h2,h3,h4,p{margin:0}h1{font-size:clamp(43px,5.7vw,77px);line-height:1.035;letter-spacing:-.065em}h2{font-size:clamp(30px,3.9vw,54px);line-height:1.09;letter-spacing:-.052em}h3{font-size:clamp(17px,1.45vw,21px);line-height:1.3;letter-spacing:-.027em}h4{font-size:13px;line-height:1.35}p{color:#4f6a84}
+    .icon{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+    .icon.m{width:30px;height:30px}.icon.l{width:42px;height:42px}
+    .bar{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.96);border-bottom:1px solid #deebf5;box-shadow:0 4px 30px rgba(10,43,78,.04)}
+    .bar-inner{min-height:76px;max-width:1440px;margin:auto;padding:11px 28px;display:flex;align-items:center;gap:20px;justify-content:space-between}
+    .mark{display:flex;gap:12px;align-items:center;color:var(--n);min-width:0}
+    .mark-shape{width:43px;height:43px;display:grid;place-items:center;border:2px solid var(--o);border-radius:12px;color:var(--mh);font-size:16px;font-weight:1000;letter-spacing:-.12em;padding-right:5px}
+    .mark-text{line-height:1.13;font-weight:1000;letter-spacing:.05em;font-size:13px}.mark-text small{display:block;margin-top:5px;font-size:9px;letter-spacing:.15em;color:#7c94a8;font-weight:800}
+    .bar-note{color:#7990a5;font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:850}
+    .bar-right{display:flex;align-items:center;gap:10px}.print{border:1px solid #cfdfeb;padding:10px 14px;border-radius:10px;background:#fff;color:var(--mh);font-weight:850;font-size:12px;display:flex;gap:7px;align-items:center}.print:hover{background:#edf5fb}
+    .reading-track{position:absolute;bottom:0;left:0;width:100%;height:3px;background:#edf2f7}.reading-fill{height:100%;width:0;background:var(--o);transition:width .08s linear}
+    .wrap{width:min(100% - 60px,1370px);margin:0 auto}.block{padding:90px 0;position:relative}.block.tight{padding:65px 0}.light{background:#f4f8fb}.white{background:#fff}.ink{background:var(--n);color:#fff}.panel{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
+    .eyebrow{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.17em;color:var(--mh);font-weight:1000;text-transform:uppercase;margin-bottom:14px}.eyebrow:before{content:"";width:21px;height:4px;border-radius:9px;background:var(--o)}
+    .eyebrow.on-dark{color:#93c5f3}.title-lead{font-size:16px;color:#58738c;line-height:1.75;max-width:840px;margin-top:17px}.ink .title-lead{color:#b9cde1}.ink h2,.ink h3,.ink strong{color:#fff}
+    .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.wide{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center}
+    .chip{display:inline-flex;align-items:center;gap:7px;border-radius:100px;font-weight:900;font-size:10px;padding:7px 11px;line-height:1.2;background:#e7f1fa;color:#225d91;white-space:normal}.chip.orange{background:#fff0d9;color:#9e6118}.chip.green{background:#e3f7ee;color:#187559}.chip.dark{background:#213f60;color:#d8eafa}.chip.outline{background:transparent;border:1px solid #c6d9e8;color:#486b8b}
+    .chip .spot{height:6px;width:6px;border-radius:50%;background:currentColor;display:inline-block}
+    .rule{border-left:4px solid var(--o);background:#fff6e9;border-radius:0 12px 12px 0;padding:16px 20px;font-size:12px;line-height:1.7;color:#745234;margin-top:18px}.rule strong{color:#37526c}.rule.blue{background:#edf5fc;border-left-color:var(--bright);color:#386281}.rule.green{background:#e9f7f0;border-left-color:var(--green);color:#326f58}
+    .button{border:0;display:inline-flex;align-items:center;gap:10px;border-radius:11px;background:var(--o);color:#182b3d;padding:12px 18px;font-weight:1000;font-size:12px;box-shadow:0 8px 25px rgba(241,140,38,.18)}.button:hover{text-decoration:none;background:#ffa040}.button.secondary{background:#fff;color:var(--mh);border:1px solid #d6e4ed;box-shadow:none}
+    .faint{color:#7990a5;font-size:11px;line-height:1.6}.mt12{margin-top:12px}.mt20{margin-top:20px}.mt28{margin-top:28px}.mb20{margin-bottom:20px}.section-top{margin-bottom:40px}.section-top.center{text-align:center}.section-top.center .eyebrow{justify-content:center}.section-top.center .title-lead{margin-inline:auto}
+    .call-label{font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.14em;color:#6f8ca5}.hi{color:var(--o)}
+    .hero{background:radial-gradient(circle at 80% 20%,#1b5787 0%,#123557 33%,#071b32 72%);color:#fff;overflow:hidden;position:relative}
+    .hero:before{content:"";position:absolute;width:630px;height:630px;border-radius:50%;right:-155px;top:-150px;border:1px solid rgba(255,255,255,.09);box-shadow:0 0 0 100px rgba(255,255,255,.025),0 0 0 205px rgba(255,255,255,.017)}
+    .hero .wrap{position:relative;z-index:1}.hero-lead{font-size:16px;line-height:1.75;color:#b8d0e7;max-width:750px;margin:20px 0 24px}.hero strong{color:#fff}.hero .eyebrow{color:#ffbc74}
+    .hero-content{padding:90px 0 48px;max-width:1000px}.hero h1{max-width:980px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .hero-stage{display:grid;grid-template-columns:1.08fr .21fr 1fr;align-items:center;gap:15px;margin:33px 0 45px}
+    .stage-marketing,.stage-revenue{border:1px solid #426b8e;border-radius:19px;padding:24px;background:rgba(255,255,255,.055);backdrop-filter:blur(8px);min-height:207px}
+    .stage-revenue{background:rgba(241,140,38,.11);border-color:#936743}.stage-title{display:flex;align-items:center;gap:9px;font-size:12px;color:#c1defa;text-transform:uppercase;letter-spacing:.14em;font-weight:1000;margin-bottom:18px}.stage-revenue .stage-title{color:#ffbf79}
+    .stage-flow{display:flex;gap:8px;align-items:stretch}.stage-step{flex:1;min-width:0;border:1px solid rgba(255,255,255,.15);background:rgba(9,31,59,.46);padding:16px 11px;border-radius:12px;text-align:center;color:#fff;display:grid;align-content:center;justify-items:center;gap:8px}.stage-step .icon{color:#71b8f0}.stage-revenue .stage-step .icon{color:#ffad57}.stage-step b{font-size:11px;line-height:1.3}.stage-step small{color:#a8bdd1;font-size:9px;line-height:1.35}.stage-divider{display:grid;place-items:center;color:#ffb16a}.stage-divider .icon{width:45px;height:45px;stroke-width:2.8}
+    .meta-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;padding:18px 0 21px;border-top:1px solid rgba(255,255,255,.16);font-size:11px;color:#a5c2dc}.meta-strip b{display:block;font-size:23px;letter-spacing:-.03em;color:#fff}.meta-strip p{color:#bed1e2;font-size:11px}.meta-strip .mutedmeta{font-size:10px;color:#94b2ce}
+    .intent-note{display:flex;align-items:start;gap:12px;padding:17px 20px;border:1px solid #cfe0ed;border-radius:15px;background:#fff;margin-top:27px}.intent-note .icon{color:var(--mh);margin-top:2px}.intent-note p{font-size:12px;line-height:1.7}
+    .two-challenges{display:grid;grid-template-columns:1fr 1fr;gap:15px}.challenge{padding:25px;border-radius:18px;background:#fff;border:1px solid #dae7f0;box-shadow:var(--shadow)}.challenge h3{margin:12px 0}.challenge p{font-size:13px}.challenge .icon{color:#1d679f}.challenge:nth-child(2){background:#fff7ed;border-color:#f3d9bd}.challenge:nth-child(2) .icon{color:#dc822a}
+    .marketing-canvas{background:linear-gradient(145deg,#e7f3fc,#f5f9ff 60%,#fff7ea);border:1px solid #d7e9f6;border-radius:25px;padding:25px;position:relative;overflow:hidden}
+    .social-showcase{display:grid;grid-template-columns:1fr 235px 1fr;gap:16px;align-items:center;max-width:1150px;margin:auto;min-height:460px}
+    .showcase-side{display:grid;gap:16px}.creative-card{background:rgba(255,255,255,.96);border:1px solid #d5e3ed;padding:20px;border-radius:17px;box-shadow:0 11px 25px rgba(17,62,103,.06);position:relative}
+    .creative-card .upper{display:flex;gap:10px;align-items:center;color:#215a8e;font-size:11px;font-weight:950;margin-bottom:12px}.creative-card .upper .icon{width:24px;height:24px}.creative-card h3{font-size:16px;margin-bottom:7px}.creative-card p{font-size:11px}.creative-card .foot{margin-top:14px;padding-top:11px;border-top:1px solid #e5eef5;font-size:10px;color:#5c7a96}
+    .creative-card.orange{background:#fff9f0;border-color:#eedbc4}.creative-card.orange .upper{color:#bd7122}.creative-card.green{background:#f4fbf8;border-color:#d7eadf}.creative-card.green .upper{color:#23805c}
+    .phone{width:235px;height:432px;border:7px solid #133656;background:#061e38;border-radius:34px;padding:8px;box-shadow:0 25px 50px rgba(15,53,91,.22);position:relative}
+    .phone:before{content:"";position:absolute;width:58px;height:13px;top:5px;left:calc(50% - 29px);background:#0a2037;border-radius:0 0 11px 11px;z-index:2}
+    .phone-inside{height:100%;border-radius:24px;overflow:hidden;background:radial-gradient(circle at 85% 30%,#1e6d9f 0%,#0d335b 38%,#071d35 83%);position:relative;color:#fff;padding:15px}
+    .story-bars{display:flex;gap:4px;margin:6px 0 18px}.story-bars span{height:3px;background:rgba(255,255,255,.9);flex:1;border-radius:8px}.story-bars span:last-child{background:rgba(255,255,255,.28)}
+    .story-handle{display:flex;gap:7px;align-items:center;font-size:10px;font-weight:800}.story-avatar{width:25px;height:25px;border:2px solid #ffb35a;border-radius:50%;display:grid;place-items:center;font-size:9px;color:#fff}
+    .story-visual{position:absolute;top:120px;left:2px;right:2px;height:155px;opacity:.8}.story-copy{position:absolute;left:16px;right:16px;bottom:38px}.story-copy .smallhead{color:#f7b86d;font-size:9px;letter-spacing:.13em;font-weight:950}.story-copy strong{display:block;font-size:19px;line-height:1.15;margin:7px 0 10px}.story-copy .story-cta{display:block;text-align:center;border:1px solid #f4a04b;background:#e88922;color:#111f2d;border-radius:9px;padding:9px;font-weight:950;font-size:10px}
+    .content-engine{margin-top:22px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:11px}.engine-tile{padding:17px;border:1px solid #dce6ef;border-radius:15px;background:#fff;display:flex;flex-direction:column;gap:11px;min-height:175px}.engine-tile .icon{color:#1c659c}.engine-tile b{font-size:12px;line-height:1.3}.engine-tile p{font-size:11px;line-height:1.55}.engine-tile:nth-child(5){background:#fff5e8;border-color:#f0d9bd}.engine-tile:nth-child(5) .icon{color:#c97a23}
+    .feedback-loop{margin-top:21px;display:flex;align-items:center;gap:11px;padding:15px;border:1px dashed #9ec6e5;border-radius:12px;color:#285f8e;background:#f1f7fc}.feedback-loop .icon{color:#dc8429}.feedback-loop p{font-size:12px}
+    .channel-strip{margin-top:17px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#fff;border:1px solid #d9e5ee;border-radius:16px;padding:17px 20px}.channel-strip strong{font-size:11px;color:#245881;letter-spacing:.04em;margin-right:auto}.channel{display:flex;align-items:center;gap:8px;color:#385e7e;font-size:11px;font-weight:900;border-radius:9px;background:#edf5fa;padding:8px 10px}.channel .circle{height:25px;width:25px;display:grid;place-items:center;border-radius:7px;color:#fff;background:#1f6dab;font-size:13px;font-weight:1000}.channel:nth-of-type(2) .circle{background:#a24e94}.channel:nth-of-type(3) .circle{background:#dc3333}.channel:nth-of-type(4) .circle{background:#122538}
+    .sources{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.source-card{background:#fff;padding:22px;border:1px solid #dae6f0;border-radius:16px;min-height:165px;display:flex;flex-direction:column;gap:10px}.source-card .icon{color:#2672aa}.source-card b{font-size:16px}.source-card p{font-size:12px}.source-card:nth-child(2){background:#eff6fc}.source-card:nth-child(3){background:#fff4e7;border-color:#efd8bf}.source-card:nth-child(3) .icon{color:#c37725}
+    .split-system{background:#fff;border:1px solid #dce8f0;border-radius:23px;display:grid;grid-template-columns:1fr 70px 1fr;gap:0;overflow:hidden;margin-top:22px;box-shadow:var(--shadow)}
+    .split-side{padding:28px}.split-side h3{margin:15px 0 9px}.split-side p{font-size:12px;max-width:420px}.split-side .leadflow{display:flex;gap:8px;align-items:center;margin-top:20px}.leadblock{padding:13px 12px;border:1px solid #dbe5ec;border-radius:10px;background:#f5f8fb;font-size:11px;font-weight:850;color:#325d82;flex:1;text-align:center}.leadblock.orange{background:#fff0dc;color:#9b621e;border-color:#f1d1aa}.midcross{display:grid;place-items:center;color:#9ab2c5;background:#eff5fa}.midcross .icon{height:31px;width:31px}
+    .split-side.new{background:#fff9f0}.split-side.new .leadblock{background:#fff2e2;border-color:#efd2b0;color:#945a16}
+    .architect{margin-top:25px;border-radius:23px;background:radial-gradient(circle at 10% 0%,#194775,#0c2849 65%);padding:38px;color:#fff;box-shadow:0 20px 55px rgba(15,53,92,.15)}
+    .architect h3{font-size:19px;color:#fff}.architect p{color:#bbd1e5;font-size:12px}
+    .architect-lanes{display:grid;grid-template-columns:1fr;gap:15px;margin-top:25px}.arch-lane{display:grid;grid-template-columns:185px 1fr;gap:14px;align-items:center}.lane-tag{font-size:11px;font-weight:950;letter-spacing:.09em;color:#ffb56c;text-transform:uppercase}
+    .arch-flow{display:flex;gap:6px;align-items:stretch}.arch-node{background:rgba(255,255,255,.08);border:1px solid #3d6081;border-radius:11px;padding:13px 8px;color:#fff;font-weight:900;text-align:center;flex:1;min-width:0;font-size:11px;line-height:1.45}.arch-node.hot{background:#f18c26;color:#14263a;border-color:#f18c26}.arch-arrow{display:grid;place-items:center;color:#ffb563;font-size:21px}.arch-caption{font-size:11px;color:#a2c0dc;margin-top:17px}
+    /* MOTOR DE IA Y EXPERIENCIA DE COMPRA */
+    .ai-world{background:radial-gradient(circle at 15% 5%,#184877,#0b243f 51%,#07192e);color:#fff;position:relative;overflow:hidden}
+    .ai-world:before{content:"";position:absolute;width:490px;height:490px;border-radius:50%;border:1px solid rgba(255,255,255,.06);top:-205px;right:-150px;box-shadow:0 0 0 88px rgba(255,255,255,.015),0 0 0 160px rgba(255,255,255,.012)}
+    .ai-world .wrap{position:relative}.ai-world h2,.ai-world h3,.ai-world strong{color:#fff}.ai-world .eyebrow{color:#f3b978}.ai-world .title-lead{color:#b4cadc}
+    .ai-proof{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:17px}.ai-proof .chip{background:#173b5f;color:#d4e8fb;border:1px solid #2f597f}
+    .case-controls{display:flex;flex-wrap:wrap;gap:9px;margin:33px 0 18px}
+    .case-btn{border:1px solid #4d7194;background:#102f51;color:#cee0ee;font-weight:950;font-size:11px;border-radius:10px;padding:12px 15px;display:flex;gap:7px;align-items:center}.case-btn:hover{background:#17446d}.case-btn.on{background:#f18c26;border-color:#f18c26;color:#102a43}.case-btn .icon{width:17px;height:17px}
+    .case{display:none}.case.active{display:block}.ai-dashboard{display:grid;grid-template-columns:1.18fr .82fr;gap:17px;align-items:stretch}
+    .chat-window{background:#f8fbfd;color:var(--ink);border:1px solid #abc6db;border-radius:20px;overflow:hidden;min-height:490px}
+    .chat-head{display:flex;gap:12px;align-items:center;background:#fff;padding:17px 22px;border-bottom:1px solid #dce6ef}
+    .avatarbot{width:40px;height:40px;border:1px solid #9ec6e6;border-radius:12px;background:#e8f5fc;display:grid;place-items:center;color:#1d679d}
+    .chat-head h3{font-size:14px}.chat-head p{font-size:11px;color:#6f899e}.chat-head .liveflag{margin-left:auto;font-size:10px;color:#14815f;font-weight:950;display:flex;gap:6px;align-items:center}
+    .chat-head .liveflag i{width:7px;height:7px;border-radius:50%;background:#17a77a;display:block}
+    .chat-scroll{padding:25px 22px 20px;display:grid;align-content:start;gap:17px;min-height:372px}
+    .chat-line{display:flex;gap:9px;align-items:flex-end;max-width:88%}.chat-line.client{justify-self:end;flex-direction:row-reverse}
+    .miniavatar{width:29px;height:29px;border-radius:50%;flex:none;background:#cfe5f4;display:grid;place-items:center;color:#245e8b;font-size:10px;font-weight:900}
+    .chat-line.client .miniavatar{background:#e9d9c3;color:#80501a}
+    .bubble{padding:12px 15px;background:#fff;border:1px solid #dbe6ee;border-radius:14px 14px 14px 3px;font-size:12px;line-height:1.62;color:#31506b;max-width:100%}
+    .chat-line.client .bubble{background:#dcf2e7;border-color:#c4e8d7;border-radius:14px 14px 3px 14px;color:#245744}
+    .chatfoot{display:flex;justify-content:space-between;gap:12px;padding:12px 22px;border-top:1px solid #e2edf3;background:#f2f7fb;color:#7390a5;font-size:10px}
+    .side-insight{background:#102f4c;border:1px solid #3b617f;border-radius:19px;overflow:hidden;display:flex;flex-direction:column}
+    .insight-head{background:#193e61;padding:20px;border-bottom:1px solid #345777}.insight-head h3{font-size:16px;display:flex;gap:9px;align-items:center}.insight-head p{color:#a9c6df;font-size:11px;margin-top:6px}
+    .insight-body{padding:19px;flex:1}.intent-pill{display:inline-flex;gap:7px;align-items:center;background:#eaf8f2;color:#106c4f;padding:9px 13px;font-size:11px;font-weight:1000;border-radius:9px;margin-bottom:18px}
+    .intent-pill.yellow{background:#fff0d8;color:#86551b}.intent-pill.blue{background:#e8f4fc;color:#245b87}.intent-pill.red{background:#fff0ed;color:#a34845}
+    .extracted{display:grid;grid-template-columns:1fr 1fr;gap:10px}.extract{padding:11px;background:#1a4365;border:1px solid #345e80;border-radius:10px}.extract span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#91b8d6;font-weight:900}.extract strong{display:block;margin-top:4px;font-size:12px;color:#fff;line-height:1.4}.extract .missing{color:#d9b584}
+    .ai-outcome{border-top:1px solid #345879;padding:15px 19px;background:#173956}.ai-outcome span{font-size:9px;letter-spacing:.13em;font-weight:950;text-transform:uppercase;color:#ffb368}.ai-outcome p{font-size:12px;color:#fff;font-weight:850;margin-top:4px;line-height:1.6}
+    .diagram-flow{margin-top:27px;background:#fff;border:1px solid #dce6ef;border-radius:23px;padding:34px;overflow:hidden}
+    .diagram-flow .decision-start{max-width:450px;text-align:center;margin:auto;background:var(--n2);border:2px solid #27699e;border-radius:14px;color:#fff;padding:15px;font-weight:950;font-size:15px}
+    .diagram-flow .decision-stem{height:24px;width:2px;background:#a7c9df;margin:auto}
+    .decision-branches{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:22px;position:relative}
+    .decision-branches:before{content:"";position:absolute;top:-22px;left:10%;right:10%;border-top:2px solid #a7c9df}
+    .decision-branches .branch{border:1px solid #dce7f0;border-top:4px solid #276ea7;background:#f5f9fc;border-radius:12px;padding:17px;position:relative;min-height:183px}
+    .decision-branches .branch:before{content:"";position:absolute;top:-22px;left:50%;height:22px;border-left:2px solid #a7c9df}
+    .decision-branches .branch.warn{border-top-color:#e6a04a;background:#fff8ee}.decision-branches .branch.green{border-top-color:#24a377;background:#effaf5}.decision-branches .branch.red{border-top-color:#bc6962;background:#fff5f3}
+    .decision-branches .branch h4{font-size:12px;margin-bottom:8px}.decision-branches .branch p{font-size:11px;line-height:1.6}.decision-branches .branch .branch-out{border-top:1px solid #d9e6ef;padding-top:10px;margin-top:11px;color:#1e5d8c;font-size:10px;font-weight:950}
+    .human-override{margin-top:15px;border:1px dashed #eab478;background:#fff6e7;border-radius:14px;padding:15px 20px;display:flex;gap:13px;align-items:center}.human-override .icon{color:#c27a20}.human-override p{font-size:12px}
+    .stepribbon{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:24px}.ribbon-step{background:#fff;border:1px solid #dce6ee;border-radius:15px;padding:20px;min-height:140px}
+    .ribbon-step .top{display:flex;gap:10px;align-items:center;color:#24669d;font-size:12px;font-weight:950;margin-bottom:11px}.ribbon-step .icon{color:#2b74ac}
+    .ribbon-step p{font-size:12px}.ribbon-step.orange{background:#fff7ed;border-color:#f0d9bf}.ribbon-step.orange .top{color:#c37a24}
+    .handoff-board{display:grid;grid-template-columns:1fr 36px 1.05fr 36px 1fr;align-items:stretch;gap:10px;margin-top:29px}
+    .handoff-arrow{align-self:center;color:#df822c;display:grid;place-items:center}.handoff-arrow .icon{width:32px;height:32px}
+    .work-card{background:#fff;border:1px solid #dbe6ef;border-radius:17px;box-shadow:0 12px 36px rgba(15,56,94,.065);padding:20px;min-height:360px}
+    .work-card.highlight{border-color:#f0b777;background:#fffaf3}.work-card .work-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}.work-card .work-head .icon{color:#2371ab}.work-card.highlight .work-head .icon{color:#d2872b}
+    .work-card .work-head h3{font-size:16px}.work-card .work-head span{display:block;font-size:10px;color:#70889c}
+    .field-grid{display:grid;gap:7px}.field{display:flex;gap:6px;justify-content:space-between;align-items:start;background:#f2f7fb;border-radius:8px;padding:10px 11px;font-size:11px;line-height:1.45;color:#68839a}.field strong{color:#274d70;text-align:right;font-weight:900;font-size:11px}.work-card.highlight .field{background:#fff0dc}
+    .unit-option{display:flex;gap:10px;align-items:start;padding:12px;background:#f3f8fb;border:1px solid #dbe7ef;border-radius:11px;margin-bottom:9px}.unit-option .icon{color:#2a77ab}.unit-option strong{display:block;font-size:11px}.unit-option p{font-size:10px}.unit-option .chip{margin-top:5px;padding:5px 7px;font-size:9px}
+    .work-card .footnote{font-size:10px;color:#748ba0;margin-top:13px;line-height:1.6}
+    .work-card .done{display:flex;align-items:center;gap:8px;padding:11px 12px;background:#ebf8f2;color:#137657;border-radius:10px;margin-top:13px;font-size:11px;font-weight:950}
+    .quality-checks{margin-top:20px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.quality-item{border-radius:12px;background:#eef6fc;border:1px solid #d5e6f3;padding:16px;display:flex;align-items:start;gap:10px}.quality-item .icon{color:#2371a8}.quality-item p{font-size:11px}.quality-item strong{font-size:11px}
+    .live-layout{display:grid;grid-template-columns:1.05fr .95fr;gap:25px;align-items:center}.live-screen{background:#0b2441;border:8px solid #183d5e;border-radius:20px;min-height:315px;overflow:hidden;position:relative;box-shadow:0 20px 45px rgba(12,43,75,.16)}
+    .live-screen-inner{min-height:301px;background:radial-gradient(circle at 80% 30%,#225b8c,#102d4c 65%);padding:24px;display:flex;flex-direction:column;justify-content:space-between;color:#fff}
+    .live-top{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:10px}.live-badge{background:#e33d38;color:#fff;padding:6px 9px;border-radius:6px;font-size:10px;font-weight:950}.live-center{display:flex;align-items:center;gap:16px}.live-center .play{width:69px;height:69px;border:1px solid #ffc17f;border-radius:50%;background:#f18c26;display:grid;place-items:center;color:#14263b}.live-center h3{font-size:24px;color:#fff}.live-center p{color:#b8d7ec;font-size:12px}.live-chatline{display:flex;gap:7px;flex-wrap:wrap}.live-chatline span{border:1px solid #4c7699;background:#173d5f;color:#d4e7f5;padding:7px 10px;border-radius:9px;font-size:10px}
+    .live-path{display:grid;gap:10px}.live-path .pathstep{display:flex;gap:11px;align-items:start;padding:14px 16px;border:1px solid #dae7f0;background:#fff;border-radius:13px}.live-path .pathstep .num{border-radius:9px;background:#e6f1fa;width:30px;height:30px;display:grid;place-items:center;font-weight:1000;color:#245f91;font-size:11px;flex:none}.live-path .pathstep strong{font-size:12px}.live-path .pathstep p{font-size:11px}.live-path .pathstep.orange{background:#fff5e8;border-color:#f1d3ac}.live-path .pathstep.orange .num{background:#ffe4c2;color:#9b5f1c}
+    .calendar-row{margin-top:21px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}.weekday{border:1px solid #dce8f0;border-radius:12px;overflow:hidden;background:#fff}.weekday strong{display:block;background:#edf5fb;padding:11px 12px;font-size:11px;color:#245e8c}.weekday p{padding:12px;font-size:10px}.weekday.live{border-color:#e9bc80}.weekday.live strong{background:#ffe8cb;color:#995b18}
+    .month-program{margin-top:37px}.month-program-top{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:18px}.month-program-top h3{font-size:clamp(23px,2.5vw,32px);letter-spacing:-.04em}.month-program-top p{font-size:12px;max-width:630px;margin-top:7px}
+    .month-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.month-card{position:relative;overflow:hidden;border:1px solid #d5e5f0;border-radius:17px;padding:22px 19px 18px;background:linear-gradient(145deg,#fff,#f3f9fe);display:flex;flex-direction:column;gap:11px;min-height:368px}.month-card.guest{background:linear-gradient(155deg,#fff9f0,#fff);border-color:#edceb0}
+    .month-card:before{content:"";height:5px;position:absolute;top:0;left:0;right:0;background:#2b74a7}.month-card.guest:before{background:#e78e36}
+    .session-label{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:10px;color:#6d879d;font-weight:1000;letter-spacing:.07em;text-transform:uppercase}.session-label .chip{padding:5px 8px;letter-spacing:0}
+    .faces{display:flex;align-items:center;margin-top:2px}.face{height:40px;width:40px;border-radius:50%;border:3px solid #fff;background:#195b8e;color:#fff;display:grid;place-items:center;font-size:15px;font-weight:1000;box-shadow:0 4px 10px rgba(26,69,105,.14)}.face + .face{margin-left:-8px;background:#f18c26;color:#22374b}.face.g{background:#d88224;color:#fff}
+    .month-card h4{font-size:19px;letter-spacing:-.026em;line-height:1.2}.month-card .host-text{font-size:11px;font-weight:900;color:#2a6595}.month-card.guest .host-text{color:#a76a28}
+    .month-card p{font-size:11px;line-height:1.6}.month-card ul{list-style:none;padding:0;margin:0}.month-card li{position:relative;padding:6px 0 6px 15px;color:#456782;font-size:11px;line-height:1.5}.month-card li:before{content:"•";position:absolute;left:2px;color:#ee9238;font-weight:1000}.month-card .result{border-top:1px solid #dce7f0;padding-top:12px;margin-top:auto;font-size:10px;color:#446c8a}.month-card .result b{display:block;color:#1b537d;font-size:10px}
+    .month-rule{margin-top:13px;border:1px dashed #b8d4e9;background:#eff7fc;border-radius:13px;padding:15px 19px;display:flex;align-items:start;gap:10px}.month-rule .icon{color:#216ca5}.month-rule p{font-size:12px;line-height:1.65}
+    .stable-guide{margin-top:22px;border:1px solid #d7e5ee;background:#f5f9fc;border-radius:16px;padding:21px}.stable-guide h4{font-size:14px;margin-bottom:13px}.stable-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.stable-step{border:1px solid #d6e5ef;background:#fff;border-radius:10px;padding:13px}.stable-step .number{display:grid;place-items:center;width:26px;height:26px;background:#e7f2fa;border-radius:8px;color:#205b91;font-size:10px;font-weight:1000;margin-bottom:9px}.stable-step b{display:block;color:#285b84;font-size:11px}.stable-step p{font-size:10px;margin-top:5px}
+    .live-ops{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:21px}.live-ops-card{padding:18px 19px;background:#fff;border:1px solid #d8e6f0;border-radius:13px}.live-ops-card .topline{display:flex;align-items:center;gap:9px;margin-bottom:10px;color:#246b9e;font-weight:1000;font-size:12px}.live-ops-card p{font-size:11px;line-height:1.65}.live-ops-card .chip{margin-top:11px}
+    @media(max-width:1100px){.month-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stable-steps{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:840px){.live-ops{grid-template-columns:1fr}.month-program-top{display:block}.month-program-top .chip{margin-top:10px}}
+    @media(max-width:620px){.month-grid,.stable-steps{grid-template-columns:1fr}.month-card{min-height:0}.month-program-top h3{font-size:25px}}
+    @media print{.month-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.month-card,.stable-guide,.live-ops-card{break-inside:avoid}.month-program{break-before:page}}
+    .guardrails{display:grid;grid-template-columns:1fr 1fr;gap:17px}.guard{padding:21px;border-radius:16px;background:#fff;border:1px solid #dce7ef;display:flex;gap:12px;align-items:start}.guard .icon{color:#2b6f9f}.guard.warn{background:#fff8ed;border-color:#efd7b9}.guard.warn .icon{color:#c77d22}.guard h3{font-size:15px;margin-bottom:6px}.guard p{font-size:12px}
+    .metric-funnel{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-top:29px}.metric-column{background:#fff;border:1px solid #dbe6ef;border-radius:16px;padding:21px}.metric-column .icon{color:#2272a8;margin-bottom:12px}.metric-column h3{font-size:17px}.metric-column p{font-size:11px;margin-top:7px;min-height:65px}.metric-column .metric-bar{margin-top:18px;height:7px;border-radius:99px;background:#e9f1f7;position:relative;overflow:hidden}.metric-column .metric-bar:after{content:"";position:absolute;left:0;top:0;width:24%;height:100%;background:repeating-linear-gradient(45deg,#a8bfd1 0 5px,#e5edf3 5px 10px);opacity:.8}
+    .metric-column .metric-state{font-size:10px;color:#7a91a6;font-weight:850;margin-top:8px}
+    .growthline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-top:28px}.growth{border:1px solid #d9e5ee;background:#fff;border-radius:16px;padding:21px;border-top:5px solid #2575ad;min-height:176px}.growth:nth-child(2){border-top-color:#1d8d70}.growth:nth-child(3){border-top-color:#e69b3e}.growth:nth-child(4){border-top-color:#123c64}.growth small{display:block;color:#6686a2;font-weight:950;font-size:10px;letter-spacing:.1em;margin-bottom:10px}.growth h3{font-size:18px;margin-bottom:8px}.growth p{font-size:11px}
+    .decision-list{display:grid;grid-template-columns:1fr 1fr;gap:13px}.decision-item{border:1px solid #dce6ef;background:#fff;border-radius:13px;padding:17px;display:flex;gap:13px}.decision-item .icon{color:#1e6c9f}.decision-item h4{font-size:13px;margin-bottom:6px}.decision-item p{font-size:11px}.decision-item .chip{margin-top:10px}
+    .more-details{margin-top:26px}.more-details details{background:#fff;border:1px solid #d9e5ee;border-radius:13px;margin:10px 0;overflow:hidden}.more-details summary{padding:17px 20px;cursor:pointer;color:#1d588c;font-weight:1000;font-size:12px}.more-details details[open]{background:#fbfdff}.more-details .detail-body{padding:0 20px 18px;font-size:12px;color:#4c6982}.more-details ul{padding-left:18px;margin:8px 0}.more-details li{padding:4px 0}.more-details li::marker{color:#ef963b}
+    .role-hero{display:grid;grid-template-columns:1fr 1.1fr;gap:17px;margin:30px 0}.role-card{border:1px solid #d9e6f0;border-radius:17px;background:#fff;padding:25px}.role-card.primary{background:#0f3356;border-color:#174b75;color:#fff}.role-card.primary h3,.role-card.primary strong{color:#fff}.role-card.primary p,.role-card.primary li{color:#c3d9ea}.role-card h3{font-size:21px;margin:9px 0}.role-card p{font-size:12px;line-height:1.75}.role-card ul{margin:12px 0 0;padding-left:18px}.role-card li{font-size:12px;line-height:1.7;margin:4px 0;color:#506b84}
+    .role-card .icon{color:#2775ae}.role-card.primary .icon{color:#f3aa59}
+    .role-support{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.role-support .role-card{padding:20px}.role-support .role-card h3{font-size:16px}
+    .closing-cta{background:linear-gradient(120deg,#102d4e,#1b5785);border:1px solid #2f6693;border-radius:22px;color:#fff;padding:31px;margin-top:27px;display:flex;justify-content:space-between;align-items:center;gap:25px}.closing-cta h3{color:#fff;font-size:24px}.closing-cta p{color:#bdd4e8;font-size:12px;margin-top:8px}.closing-cta a{flex:none}
+    @media(max-width:1100px){.decision-branches{grid-template-columns:repeat(3,1fr)}.decision-branches:before,.decision-branches .branch:before{display:none}.handoff-board{grid-template-columns:1fr}.handoff-arrow .icon{transform:rotate(90deg)}.quality-checks,.role-support{grid-template-columns:1fr 1fr}.metric-funnel{grid-template-columns:1fr 1fr}}
+    @media(max-width:840px){.ai-dashboard,.live-layout,.role-hero{grid-template-columns:1fr}.chat-window{min-height:420px}.decision-branches,.stepribbon,.calendar-row,.growthline{grid-template-columns:1fr 1fr}.closing-cta{display:block}.closing-cta a{margin-top:17px}}
+    @media(max-width:620px){.case-controls{gap:6px}.case-btn{font-size:10px;padding:10px}.ai-dashboard,.decision-branches,.stepribbon,.live-layout,.calendar-row,.metric-funnel,.quality-checks,.growthline,.decision-list,.role-hero,.role-support,.guardrails{grid-template-columns:1fr}.chat-window{min-height:0}.chat-scroll{padding:18px 11px;min-height:280px}.bubble{font-size:11px}.chat-line{max-width:96%}.diagram-flow{padding:20px}.decision-branches{margin-top:13px}.decision-stem{display:none}.work-card{min-height:0}.live-screen{min-height:270px}.live-screen-inner{min-height:256px}.live-center h3{font-size:19px}.extracted{grid-template-columns:1fr 1fr}.closing-cta{padding:22px}}
+    @media print{.ai-world{print-color-adjust:exact;-webkit-print-color-adjust:exact}.case-controls{display:none}.case{display:block!important;margin-bottom:16px;page-break-inside:avoid}.chat-window{min-height:0}.chat-scroll{min-height:0}.ai-dashboard{display:block}.side-insight{margin-top:8px}.diagram-flow{break-inside:avoid}.decision-branches{grid-template-columns:repeat(5,1fr)}.decision-branches .branch{min-height:130px;padding:9px}.handoff-board{grid-template-columns:1fr 28px 1fr 28px 1fr}.work-card{padding:12px;min-height:0}.role-card,.metric-column,.weekday,.growth{break-inside:avoid}.more-details details .detail-body{display:block!important}}
+    .footer{background:#071a30;color:#b2cbe2;padding:42px 0 55px;text-align:center}.footer b{color:#fff}.footer p{color:#a4bdd3;font-size:11px;margin-top:8px}
+    @media(max-width:1100px){.social-showcase{grid-template-columns:1fr 220px 1fr}.phone{width:220px}.hero-stage{grid-template-columns:1fr}.stage-divider{transform:rotate(90deg)}.content-engine{grid-template-columns:repeat(3,minmax(0,1fr))}.arch-lane{grid-template-columns:145px 1fr}}
+    @media(max-width:840px){.wide,.grid4,.grid3,.grid2,.two-challenges,.sources{grid-template-columns:1fr 1fr}.hero-content{padding:70px 0 30px}.social-showcase{grid-template-columns:1fr 235px}.social-showcase .showcase-side:last-child{grid-column:1/-1;grid-template-columns:1fr 1fr}.split-system{grid-template-columns:1fr}.midcross{height:55px}.midcross .icon{transform:rotate(90deg)}.arch-lane{grid-template-columns:1fr}.arch-flow{flex-wrap:wrap}}
+    @media(max-width:620px){.wrap{width:min(100% - 26px,1370px)}.bar-inner{padding:10px 14px}.bar-note{display:none}.mark-text{font-size:11px}.mark-shape{width:38px;height:38px}.print{font-size:11px;padding:8px 10px}.block{padding:62px 0}.block.tight{padding:45px 0}h1{font-size:43px}h2{font-size:32px}.hero-lead,.title-lead{font-size:13px}.stage-marketing,.stage-revenue{padding:15px}.stage-flow{gap:5px}.stage-step{padding:12px 7px}.stage-step b{font-size:10px}.meta-strip{grid-template-columns:1fr 1fr;gap:14px}.two-challenges,.wide,.grid4,.grid3,.grid2,.sources,.content-engine{grid-template-columns:1fr}.marketing-canvas{padding:15px}.social-showcase{display:flex;flex-direction:column}.social-showcase .showcase-side{width:100%}.social-showcase .showcase-side:last-child{display:grid;grid-template-columns:1fr}.phone{width:235px}.arch-flow{display:grid}.arch-arrow{transform:rotate(90deg);height:12px}.architect{padding:23px}.split-side{padding:19px}}
+    @media print{@page{size:A4;margin:11mm}body{background:#fff}.bar{display:none}.block{padding:26px 0;break-before:auto}.wrap{width:100%}.hero,.architect,.footer{print-color-adjust:exact;-webkit-print-color-adjust:exact}.hero-content{padding:25px 0}.hero h1{font-size:34px}.hero-stage{display:none}.panel,.source-card,.creative-card{box-shadow:none}.phone{print-color-adjust:exact;-webkit-print-color-adjust:exact}.stage-marketing,.stage-revenue{break-inside:avoid}.challenge,.creative-card,.source-card,.engine-tile,.split-side{break-inside:avoid}.title-lead{font-size:12px}.social-showcase{min-height:0}.block{page-break-inside:auto}}
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute;overflow:hidden">
+    <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="3"/><path d="M12 3v4M9 3h6M4 13H2m20 0h-2"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/><path d="M9 17h6"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="2.5" y="5" width="14" height="14" rx="3"/><path d="m16.5 10 5-3v10l-5-3"/></symbol>
+    <symbol id="i-campaign" viewBox="0 0 24 24"><path d="m3 11 13-5v12L3 13zM16 8c4 0 5-2 5-2v12s-1-2-5-2M5 13l2 7h4l-3-6"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 4v16h18M7 15l4-5 4 3 5-7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 13 5 5L20 6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-5 3-8 8-8s8 3 8 8"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-7-7 7 7-7 7"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 2 8 4v6c0 5-4 8-8 10-4-2-8-5-8-10V6z"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M4 4h16v13H8l-4 3z"/><path d="M8 9h8m-8 4h6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 6h12v11H2zM14 10h4l4 4v3h-8z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 5v6h-6M4 19v-6h6"/><path d="M5 9a8 8 0 0 1 14-3l1 5M4 13l1 5a8 8 0 0 0 14-3"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 20h20zM12 9v5m0 3v.3"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-2 2M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l2-2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M4 3h16l2 12v6H2v-6zM2 15h7l2 3h2l2-3h7"/></symbol>
+  </svg>
+  <header class="bar">
+    <div class="bar-inner">
+      <div class="mark"><span class="mark-shape">MH</span><span class="mark-text">MACHINERY HUNTERS<small>MARKETING + IA + VENTAS</small></span></div>
+      <div class="bar-note">Mapa de funcionamiento · Versión visual 0.5 · 26/oct/2026</div>
+      <div class="bar-right"><span class="chip green"><span class="spot"></span> Diseño en desarrollo</span><button type="button" class="print" id="print"><svg class="icon" style="width:16px;height:16px"><use href="#i-chart"/></svg> PDF</button></div>
+    </div>
+    <div class="reading-track"><div class="reading-fill" id="progress"></div></div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-content">
+          <div class="eyebrow">Diseño estratégico MH · Octubre 2026</div>
+          <h1>Marketing genera la conversación. <span class="hi">La IA identifica al comprador.</span> El cerrador convierte.</h1>
+          <p class="hero-lead">Queremos construir una operación donde la presencia digital no dependa del vendedor, el aumento de pauta tenga un proceso propio y los clientes lleguen a negociación con una necesidad concreta y una opción viable. Empezamos con <strong>IA + Cinthya + Gabriel</strong> para descubrir cómo evolucionar hacia <strong>IA + cerrador</strong>.</p>
+          <div class="hero-actions"><a href="#mapa" class="button">Ver cómo funciona el sistema <svg class="icon" style="width:17px;height:17px"><use href="#i-arrow"/></svg></a><a href="#ia-demo" class="button secondary">Ver al agente en acción</a></div>
+        </div>
+        <div class="hero-stage" aria-label="Dos motores del sistema">
+          <div class="stage-marketing"><div class="stage-title"><svg class="icon"><use href="#i-campaign"/></svg> MOTOR DE MARKETING</div><div class="stage-flow">
+            <div class="stage-step"><svg class="icon m"><use href="#i-video"/></svg><b>Contenido</b><small>Justin + Cinthya</small></div>
+            <div class="stage-step"><svg class="icon m"><use href="#i-campaign"/></svg><b>Difusión</b><small>Historias y campañas</small></div>
+            <div class="stage-step"><svg class="icon m"><use href="#i-message"/></svg><b>Conversaciones</b><small>Leads incrementales</small></div>
+          </div></div>
+          <div class="stage-divider"><svg class="icon l"><use href="#i-arrow"/></svg></div>
+          <div class="stage-revenue"><div class="stage-title"><svg class="icon"><use href="#i-bot"/></svg> MOTOR DE CONVERSIÓN</div><div class="stage-flow">
+            <div class="stage-step"><svg class="icon m"><use href="#i-bot"/></svg><b>IA</b><small>Atiende y perfila</small></div>
+            <div class="stage-step"><svg class="icon m"><use href="#i-search"/></svg><b>Cinthya</b><small>Valida opciones</small></div>
+            <div class="stage-step"><svg class="icon m"><use href="#i-check"/></svg><b>Gabriel</b><small>Cotiza y cierra</small></div>
+          </div></div>
+        </div>
+        <div class="meta-strip">
+          <div><b>15</b><p>Meta general de equipos vendidos al mes en MH.</p></div>
+          <div><b>≈11</b><p>Promedio mencionado en la junta; aún por validar con datos.</p></div>
+          <div><b>En paralelo</b><p>El proceso comercial actual se mantiene; la nueva pauta seleccionada alimentará el híbrido.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block tight white">
+      <div class="wrap">
+        <div class="section-top"><div class="eyebrow">La razón detrás de la idea</div><h2>Son dos problemas distintos que podemos resolver con un sistema conectado.</h2></div>
+        <div class="two-challenges">
+          <div class="challenge"><svg class="icon l"><use href="#i-video"/></svg><div class="call-label mt12">Marketing</div><h3>No tenemos presencia diaria que se sostenga sola.</h3><p>Historias, campañas y posicionamiento dependen de esfuerzos aislados. Necesitamos rostros, agenda, producción y difusión que no dependan de que ventas genere el contenido.</p></div>
+          <div class="challenge"><svg class="icon l"><use href="#i-chart"/></svg><div class="call-label mt12">Comercial</div><h3>Más leads no resolverán automáticamente el cierre.</h3><p>La empresa quiere sostener 15 ventas mensuales. El incremento de inversión será una oportunidad de probar una nueva forma de atender, calificar y cerrar, sin reemplazar de golpe la operación vigente.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block light" id="marketing">
+      <div class="wrap">
+        <div class="section-top center"><div class="eyebrow">01 · Marketing siempre encendido</div><h2>MH necesita aparecer todos los días,<br><span style="color:#256ca1">sin pedirle al vendedor que haga marketing.</span></h2><p class="title-lead">La difusión nace del contenido. Justin aporta autoridad y confianza; Cinthya representa la presencia cotidiana y la conversación. El equipo de contenido se encarga de producir, editar y publicar.</p></div>
+        <div class="marketing-canvas">
+          <div class="social-showcase">
+            <div class="showcase-side">
+              <div class="creative-card"><div class="upper"><svg class="icon"><use href="#i-user"/></svg> JUSTIN · AUTORIDAD</div><h3>La cara institucional de MH</h3><p>Su nueva marca personal ya se está construyendo. Aquí se integrarán los temas, voz y formatos aprobados que aporten confianza al comprador.</p><div class="foot">Pendiente: recibir identidad y agenda aprobadas</div></div>
+              <div class="creative-card orange"><div class="upper"><svg class="icon"><use href="#i-video"/></svg> CINTHYA · PRESENCIA DIARIA</div><h3>Historias + conversación</h3><p>Su estilo e identidad se desarrollan desde cero. Grabará historias diariamente; videos para campaña en bloques y live semanal.</p><div class="foot">Historial: piezas anteriores todavía funcionan en pauta; probar nuevas variaciones</div></div>
+            </div>
+            <div class="phone" aria-label="Representación conceptual de una historia de Machinery Hunters">
+              <div class="phone-inside"><div class="story-bars"><span></span><span></span><span></span></div><div class="story-handle"><span class="story-avatar">MH</span> Machinery Hunters · historia</div>
+                <svg class="story-visual" viewBox="0 0 250 170" aria-hidden="true"><path d="M18 134h210M38 122h151m-144 0V95h90v27m-91-27h91l18-20h23l-8 47" fill="none" stroke="#a7d8fc" stroke-width="3" stroke-linecap="round"/><circle cx="57" cy="132" r="12" fill="none" stroke="#a7d8fc" stroke-width="4"/><circle cx="161" cy="132" r="12" fill="none" stroke="#a7d8fc" stroke-width="4"/><path d="M111 94 70 18 81 14l59 71m-70-67 43 76" fill="none" stroke="#f5a14d" stroke-width="4" stroke-linejoin="round"/><path d="M75 17v45" stroke="#fff" stroke-width="2" stroke-dasharray="4 4"/><path d="M188 122V82h25v40M191 82l14-13 9 13" fill="none" stroke="#a7d8fc" stroke-width="2"/></svg>
+                <div class="story-copy"><div class="smallhead">EJEMPLO VISUAL · NO ES UN ANUNCIO FINAL</div><strong>¿Qué equipo necesita tu proyecto?</strong><span class="story-cta">Hablemos de opciones</span></div>
+              </div>
+            </div>
+            <div class="showcase-side">
+              <div class="creative-card"><div class="upper"><svg class="icon"><use href="#i-campaign"/></svg> EQUIPO DE CONTENIDO Y DIFUSIÓN</div><h3>De la grabación a la publicación</h3><p>Edita y adapta historias, reels, anuncios y clips por plataforma. Mantiene agenda y reporta qué contenido provoca conversaciones.</p><div class="foot">Cinthya no debe asumir edición y publicación de cada pieza</div></div>
+              <div class="creative-card green"><div class="upper"><svg class="icon"><use href="#i-refresh"/></svg> RETROALIMENTACIÓN</div><h3>Las preguntas se vuelven contenido</h3><p>Lo que la IA detecte como objeción, demanda y dudas reales regresa al calendario editorial y a las pruebas de anuncios.</p><div class="foot">El contenido alimenta la IA · La IA mejora el contenido</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="content-engine">
+          <div class="engine-tile"><svg class="icon m"><use href="#i-video"/></svg><b>Historias a diario</b><p>Cinthya aparece y graba; cantidad y duración se ajustan a capacidad real.</p></div>
+          <div class="engine-tile"><svg class="icon m"><use href="#i-campaign"/></svg><b>Creativos para pauta</b><p>Grabación por bloques y variantes según categoría, audiencia y mensaje.</p></div>
+          <div class="engine-tile"><svg class="icon m"><use href="#i-user"/></svg><b>Justin y su marca</b><p>Autoridad, evidencia de MH y visión de negocio sin duplicar su identidad personal.</p></div>
+          <div class="engine-tile"><svg class="icon m"><use href="#i-calendar"/></svg><b>Q&A los miércoles</b><p>Live educativo semanal de 30–45 min, con preguntas surgidas del agente.</p></div>
+          <div class="engine-tile"><svg class="icon m"><use href="#i-refresh"/></svg><b>Clips y difusión</b><p>La producción multiplica lo grabado y lo distribuye en redes y campañas.</p></div>
+        </div>
+        <div class="channel-strip"><strong>CANALES EN LA ESTRATEGIA DE DIFUSIÓN</strong><span class="channel"><span class="circle">f</span> Facebook</span><span class="channel"><span class="circle">◎</span> Instagram</span><span class="channel"><span class="circle">▶</span> YouTube</span><span class="channel"><span class="circle">♪</span> TikTok</span></div>
+        <div class="feedback-loop"><svg class="icon m"><use href="#i-refresh"/></svg><p><strong>Ciclo de marketing:</strong> demanda y objeciones del cliente → brief de Carel → grabación de Justin/Cinthya → contenido y difusión → nuevas conversaciones → resultados de IA y ventas → mejores temas, formatos y anuncios.</p></div>
+      </div>
+    </section>
+
+    <section class="block white" id="pauta">
+      <div class="wrap">
+        <div class="section-top"><div class="eyebrow">02 · Generación de demanda</div><h2>Difundimos por tres tipos de campañas.<br><span style="color:#d8862b">Solo la nueva pauta seleccionada entra al piloto.</span></h2><p class="title-lead">Las rutas de atención directa y educativa pueden aparecer en cualquiera de estas fuentes. No debemos mandar al live a todos por defecto ni asumir que todo lead es comprador.</p></div>
+        <div class="sources">
+          <div class="source-card"><svg class="icon l"><use href="#i-campaign"/></svg><b>Leads fríos</b><p>El cliente descubre MH por primera vez. Se identifica necesidad, intención y conocimiento del proceso.</p><span class="chip outline">Captación</span></div>
+          <div class="source-card"><svg class="icon l"><use href="#i-refresh"/></svg><b>Remarketing</b><p>Ya hay interacción previa. La IA usa contexto válido, sin confundir un interés antiguo con compra vigente.</p><span class="chip outline">Reactivación</span></div>
+          <div class="source-card"><svg class="icon l"><use href="#i-truck"/></svg><b>Inventario</b><p>Campaña sobre una unidad específica, solo si su disponibilidad y condiciones fueron verificadas.</p><span class="chip orange">Oferta concreta</span></div>
+        </div>
+        <div class="split-system">
+          <div class="split-side"><span class="chip green"><span class="spot"></span> Sistema actual se mantiene</span><h3>Leads y asesores de hoy</h3><p>Su captación, asignación y proceso comercial no se alteran durante la prueba. Así evitamos mezclar resultados y conservar lo que sigue funcionando.</p><div class="leadflow"><div class="leadblock">Campañas actuales</div><svg class="icon"><use href="#i-arrow"/></svg><div class="leadblock">Ventas actual</div></div></div>
+          <div class="midcross"><svg class="icon l"><use href="#i-link"/></svg></div>
+          <div class="split-side new"><span class="chip orange"><span class="spot"></span> Piloto incremental</span><h3>Campañas adicionales de noviembre</h3><p>Se seleccionarán cuando conozcamos inversión, oferta y categoría. Cada lead tendrá origen, campaña y cohorte para saber qué produce el modelo híbrido.</p><div class="leadflow"><div class="leadblock orange">Nueva pauta elegida</div><svg class="icon"><use href="#i-arrow"/></svg><div class="leadblock orange">IA + Cinthya + Gabriel</div></div></div>
+        </div>
+        <div class="rule blue"><strong>Pendiente:</strong> conocer las campañas adicionales de noviembre, volumen, presupuesto, margen por categoría y equipos realmente ofertables. No está decidido que el primer piloto sea únicamente con grúas.</div>
+      </div>
+    </section>
+
+    <section class="block light" id="mapa">
+      <div class="wrap">
+        <div class="section-top center"><div class="eyebrow">03 · Arquitectura completa</div><h2>Lo que ocurre después de que alguien responde.</h2><p class="title-lead">El marketing provoca la conversación. La IA decide qué experiencia necesita la persona. Solo la compra activa pasa al proceso humano de búsqueda, negociación y cierre.</p></div>
+        <div class="architect">
+          <h3>Mapa del sistema de punta a punta</h3><p>Las flechas muestran el flujo de decisión, no una automatización ya implementada.</p>
+          <div class="architect-lanes">
+            <div class="arch-lane"><div class="lane-tag">MARKETING</div><div class="arch-flow"><div class="arch-node">Justin y Cinthya<br><span style="color:#a8c6e0;font-weight:500">Contenido</span></div><span class="arch-arrow">→</span><div class="arch-node">Equipo de contenido<br><span style="color:#a8c6e0;font-weight:500">Difusión</span></div><span class="arch-arrow">→</span><div class="arch-node">Campañas + redes<br><span style="color:#a8c6e0;font-weight:500">Demanda</span></div></div></div>
+            <div class="arch-lane"><div class="lane-tag">PRIMER CONTACTO</div><div class="arch-flow"><div class="arch-node hot">IA atiende y responde</div><span class="arch-arrow">→</span><div class="arch-node">Identifica intención</div><span class="arch-arrow">→</span><div class="arch-node">Clasifica y decide ruta</div></div></div>
+            <div class="arch-lane"><div class="lane-tag">DECISIÓN</div><div class="arch-flow"><div class="arch-node">Solo información<br><span style="color:#a8c6e0;font-weight:500">IA resuelve</span></div><div class="arch-node">Compra futura<br><span style="color:#a8c6e0;font-weight:500">Educar</span></div><div class="arch-node">Compra activa<br><span style="color:#a8c6e0;font-weight:500">Avanzar</span></div><div class="arch-node">Error o urgencia<br><span style="color:#a8c6e0;font-weight:500">Humano rescata</span></div></div></div>
+            <div class="arch-lane"><div class="lane-tag">VENTAS HÍBRIDAS</div><div class="arch-flow"><div class="arch-node">Cinthya<br><span style="color:#a8c6e0;font-weight:500">Equipo + proceso</span></div><span class="arch-arrow">→</span><div class="arch-node hot">Gabriel<br><span style="color:#162b43;font-weight:650">Cotiza / negocia</span></div><span class="arch-arrow">→</span><div class="arch-node">Reserva / venta<br><span style="color:#a8c6e0;font-weight:500">Resultado medido</span></div></div></div>
+          </div>
+          <p class="arch-caption">Regla central: Q&A y evidencia de confianza apoyan al comprador cuando le aportan valor; nunca bloquean su cotización. Si la IA falla, se detiene por contacto y se realiza rescate humano.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block ai-world" id="ia-demo">
+      <div class="wrap">
+        <div class="section-top"><div class="eyebrow">04 · El centro de la nueva experiencia</div><h2>La IA atiende primero.<br><span class="hi">Pero no todos los leads deben llegar a ventas.</span></h2><p class="title-lead">Este es el cambio comercial más importante: la IA responde, detecta intención, obtiene información útil y decide una ruta. Cinthya recibe compradores interesados; Gabriel recibe oportunidades preparadas. Los ejemplos siguientes son simulaciones del diseño, no chats reales ni reglas ya instaladas.</p><div class="ai-proof"><span class="chip"><svg class="icon" style="width:14px;height:14px"><use href="#i-bot"/></svg> IA primera atención</span><span class="chip"><svg class="icon" style="width:14px;height:14px"><use href="#i-search"/></svg> Perfilado por intención</span><span class="chip"><svg class="icon" style="width:14px;height:14px"><use href="#i-shield"/></svg> Rescate humano obligatorio</span></div></div>
+        <div class="call-label" style="color:#ffb979">PRUEBA ESTOS CINCO ESCENARIOS Y OBSERVA QUÉ DECIDE LA IA</div>
+        <div class="case-controls" role="group" aria-label="Simulaciones del agente">
+          <button type="button" class="case-btn on" data-case="compra" aria-pressed="true"><svg class="icon"><use href="#i-check"/></svg> Quiere comprar</button>
+          <button type="button" class="case-btn" data-case="informacion" aria-pressed="false"><svg class="icon"><use href="#i-message"/></svg> Solo información</button>
+          <button type="button" class="case-btn" data-case="duda" aria-pressed="false"><svg class="icon"><use href="#i-shield"/></svg> Dudas de confianza</button>
+          <button type="button" class="case-btn" data-case="futuro" aria-pressed="false"><svg class="icon"><use href="#i-clock"/></svg> Compra futura</button>
+          <button type="button" class="case-btn" data-case="error" aria-pressed="false"><svg class="icon"><use href="#i-alert"/></svg> IA necesita rescate</button>
+        </div>
+
+        <div class="case active" data-case-panel="compra">
+          <div class="ai-dashboard">
+            <div class="chat-window"><div class="chat-head"><div class="avatarbot"><svg class="icon m"><use href="#i-bot"/></svg></div><div><h3>Asistente IA de Machinery Hunters</h3><p>Primer contacto · ejemplo ilustrativo</p></div><span class="liveflag"><i></i> Atiende</span></div>
+              <div class="chat-scroll">
+                <div class="chat-line client"><div class="miniavatar">P</div><div class="bubble">Busco una grúa Titán de 25 toneladas para un montaje en Chihuahua.</div></div>
+                <div class="chat-line"><div class="miniavatar">IA</div><div class="bubble">Claro, puedo ayudarte a revisar opciones. ¿La necesitas para comprar pronto o estás investigando para después?</div></div>
+                <div class="chat-line client"><div class="miniavatar">P</div><div class="bubble">Quiero comprar este mes. Si tienen opciones, me interesa cotizar.</div></div>
+                <div class="chat-line"><div class="miniavatar">IA</div><div class="bubble">Perfecto. Ya tengo tipo de equipo, capacidad, aplicación, ciudad e intención. Te voy a conectar con Cinthya para revisar opciones verificadas y el proceso de compra.</div></div>
+              </div><div class="chatfoot"><span>Ejemplo diseñado · no es una conversación registrada</span><span>IA → Pre-Hunter</span></div>
+            </div>
+            <div class="side-insight"><div class="insight-head"><h3><svg class="icon"><use href="#i-bot"/></svg> Perfil que construyó la IA</h3><p>Información extraída de lo que sí dijo el cliente</p></div><div class="insight-body"><div class="intent-pill"><svg class="icon" style="width:16px;height:16px"><use href="#i-check"/></svg> Compra activa</div><div class="extracted">
+              <div class="extract"><span>Equipo</span><strong>Grúa Titán · 25 t</strong></div><div class="extract"><span>Aplicación</span><strong>Montaje</strong></div>
+              <div class="extract"><span>Ciudad</span><strong>Chihuahua</strong></div><div class="extract"><span>Momento</span><strong>Este mes</strong></div>
+              <div class="extract"><span>Presupuesto</span><strong class="missing">No compartido</strong></div><div class="extract"><span>Señal comercial</span><strong>Solicita opciones y cotización</strong></div>
+            </div></div><div class="ai-outcome"><span>DECISIÓN</span><p>Pasar con Cinthya para revisión de equipo. No obligar a asistir al live.</p></div></div>
+          </div>
+        </div>
+
+        <div class="case" data-case-panel="informacion">
+          <div class="ai-dashboard">
+            <div class="chat-window"><div class="chat-head"><div class="avatarbot"><svg class="icon m"><use href="#i-bot"/></svg></div><div><h3>Asistente IA de Machinery Hunters</h3><p>Resuelve una consulta sin crear una falsa oportunidad</p></div><span class="liveflag"><i></i> Atiende</span></div><div class="chat-scroll">
+              <div class="chat-line client"><div class="miniavatar">P</div><div class="bubble">¿Cómo puedo comprobar que la empresa es real antes de hacer un pago?</div></div>
+              <div class="chat-line"><div class="miniavatar">IA</div><div class="bubble">MH puede compartir datos fiscales, cotización formal, términos y condiciones y evidencias de entregas, además de coordinar una revisión cuando corresponda.</div></div>
+              <div class="chat-line client"><div class="miniavatar">P</div><div class="bubble">Gracias. Solo quería saber, todavía no pienso comprar.</div></div>
+              <div class="chat-line"><div class="miniavatar">IA</div><div class="bubble">Entendido, con gusto. Si más adelante buscas un equipo, aquí podemos ayudarte. ¿Te quedó alguna duda del proceso?</div></div>
+            </div><div class="chatfoot"><span>Consulta atendida</span><span>Sin envío comercial</span></div></div>
+            <div class="side-insight"><div class="insight-head"><h3><svg class="icon"><use href="#i-bot"/></svg> Decisión del agente</h3><p>Responder bien también es un resultado</p></div><div class="insight-body"><div class="intent-pill blue">Solo información</div><div class="extracted">
+              <div class="extract"><span>Necesidad</span><strong>Proceso y confianza</strong></div><div class="extract"><span>Intención</span><strong>No compra ahora</strong></div>
+              <div class="extract"><span>Equipo</span><strong class="missing">No aplica</strong></div><div class="extract"><span>Objeción</span><strong>Seguridad del pago</strong></div>
+            </div></div><div class="ai-outcome"><span>DECISIÓN</span><p>Contestar, registrar consulta y no consumir la agenda de Cinthya.</p></div></div>
+          </div>
+        </div>
+
+        <div class="case" data-case-panel="duda">
+          <div class="ai-dashboard">
+            <div class="chat-window"><div class="chat-head"><div class="avatarbot"><svg class="icon m"><use href="#i-bot"/></svg></div><div><h3>Asistente IA de Machinery Hunters</h3><p>Interés real con barrera de confianza</p></div><span class="liveflag"><i></i> Atiende</span></div><div class="chat-scroll">
+              <div class="chat-line client"><div class="miniavatar">P</div><div class="bubble">Sí me interesa comprar una retro, pero me preocupa pagar y que no me la entreguen.</div></div>
+              <div class="chat-line"><div class="miniavatar">IA</div><div class="bubble">Es válido querer comprobarlo. Podemos compartir documentos de la empresa, condiciones formales, videos de entregas y opciones de inspección. ¿Quieres revisar equipos concretos?</div></div>
+              <div class="chat-line client"><div class="miniavatar">P</div><div class="bubble">Sí. También me gustaría escuchar cómo les fue a otros clientes.</div></div>
+              <div class="chat-line"><div class="miniavatar">IA</div><div class="bubble">Claro. Para ubicar opciones: ¿en qué ciudad la utilizarías y para cuándo la necesitas?</div></div>
+              <div class="chat-line client"><div class="miniavatar">P</div><div class="bubble">En León, durante este mes.</div></div>
+              <div class="chat-line"><div class="miniavatar">IA</div><div class="bubble">Perfecto. Te conecto con Cinthya para revisar opciones. Si te sirve, el miércoles hay un Q&A sobre el proceso de compra; tu cotización no tiene que esperar al live.</div></div>
+            </div><div class="chatfoot"><span>El live acompaña; no bloquea el avance</span><span>Comercial + educación opcional</span></div></div>
+            <div class="side-insight"><div class="insight-head"><h3><svg class="icon"><use href="#i-bot"/></svg> Señales detectadas</h3><p>La objeción no se interpreta como falta de interés</p></div><div class="insight-body"><div class="intent-pill">Compra activa con objeción</div><div class="extracted">
+              <div class="extract"><span>Equipo</span><strong>Retroexcavadora</strong></div><div class="extract"><span>Intención</span><strong>Revisar opciones</strong></div>
+              <div class="extract"><span>Freno</span><strong>Pago y entrega</strong></div><div class="extract"><span>Refuerzo</span><strong>Testimonios + Q&A</strong></div>
+              <div class="extract"><span>Ciudad</span><strong>León</strong></div><div class="extract"><span>Momento</span><strong>Este mes</strong></div>
+            </div></div><div class="ai-outcome"><span>DECISIÓN</span><p>Cinthya continúa el proceso; IA ofrece el Q&A de forma opcional y registra la duda.</p></div></div>
+          </div>
+        </div>
+
+        <div class="case" data-case-panel="futuro">
+          <div class="ai-dashboard">
+            <div class="chat-window"><div class="chat-head"><div class="avatarbot"><svg class="icon m"><use href="#i-bot"/></svg></div><div><h3>Asistente IA de Machinery Hunters</h3><p>No todos deben recibir atención comercial inmediata</p></div><span class="liveflag"><i></i> Atiende</span></div><div class="chat-scroll">
+              <div class="chat-line client"><div class="miniavatar">P</div><div class="bubble">Necesito una bomba de concreto, pero quizá hasta dentro de seis meses. Primero estoy revisando el proceso.</div></div>
+              <div class="chat-line"><div class="miniavatar">IA</div><div class="bubble">Con gusto te explico cómo funciona la compra y qué revisamos antes de la entrega. ¿Hay alguna duda que quieras resolver primero?</div></div>
+              <div class="chat-line client"><div class="miniavatar">P</div><div class="bubble">Me interesa saber si puedo ver el equipo antes de pagar.</div></div>
+              <div class="chat-line"><div class="miniavatar">IA</div><div class="bubble">En los casos donde sea posible se puede coordinar una inspección. También tendremos un Q&A el miércoles; si quieres, te comparto cómo registrarte y más adelante retomamos cuando tu proyecto avance.</div></div>
+            </div><div class="chatfoot"><span>Seguimiento sujeto a consentimiento</span><span>Educación, no negociación</span></div></div>
+            <div class="side-insight"><div class="insight-head"><h3><svg class="icon"><use href="#i-bot"/></svg> Perfil observado</h3><p>Existe demanda posible, pero no compra actual</p></div><div class="insight-body"><div class="intent-pill yellow">Compra futura</div><div class="extracted">
+              <div class="extract"><span>Categoría</span><strong>Bomba de concreto</strong></div><div class="extract"><span>Plazo</span><strong>Aprox. seis meses</strong></div>
+              <div class="extract"><span>Consulta</span><strong>Inspección física</strong></div><div class="extract"><span>Consentimiento</span><strong class="missing">Por confirmar</strong></div>
+            </div></div><div class="ai-outcome"><span>DECISIÓN</span><p>Ofrecer educación y reevaluar intención cuando el prospecto dé una señal nueva.</p></div></div>
+          </div>
+        </div>
+
+        <div class="case" data-case-panel="error">
+          <div class="ai-dashboard">
+            <div class="chat-window"><div class="chat-head"><div class="avatarbot"><svg class="icon m"><use href="#i-bot"/></svg></div><div><h3>Asistente IA de Machinery Hunters</h3><p>La IA no debe improvisar datos técnicos o promesas</p></div><span class="liveflag"><i></i> Atención detenida</span></div><div class="chat-scroll">
+              <div class="chat-line client"><div class="miniavatar">P</div><div class="bubble">¿Esa grúa que me muestras levanta cierta carga al alcance que necesito? Quiero confirmación técnica.</div></div>
+              <div class="chat-line"><div class="miniavatar">IA</div><div class="bubble">No tengo una tabla de carga validada para afirmarlo. Voy a pedir que una persona revise la configuración y te conteste con información confiable.</div></div>
+              <div class="chat-line client"><div class="miniavatar">P</div><div class="bubble">Sí, prefiero hablar con alguien que lo revise.</div></div>
+              <div class="chat-line"><div class="miniavatar">IA</div><div class="bubble">De acuerdo. Te paso con una persona y dejaré el contexto de tu pregunta para que no tengas que repetirla.</div></div>
+            </div><div class="chatfoot"><span>La pausa técnica por contacto debe probarse en GHL</span><span>Humano toma control</span></div></div>
+            <div class="side-insight"><div class="insight-head"><h3><svg class="icon"><use href="#i-alert"/></svg> Excepción detectada</h3><p>La prioridad es no poner en riesgo la confianza</p></div><div class="insight-body"><div class="intent-pill red">Rescate humano</div><div class="extracted">
+              <div class="extract"><span>Motivo</span><strong>Dato técnico sin validar</strong></div><div class="extract"><span>Cliente pidió</span><strong>Hablar con persona</strong></div>
+              <div class="extract"><span>Acción</span><strong>Pausar IA</strong></div><div class="extract"><span>Registro</span><strong>Motivo + contexto</strong></div>
+            </div></div><div class="ai-outcome"><span>DECISIÓN</span><p>Detener automatización, asignar responsable y revisar el error antes de actualizar el agente.</p></div></div>
+          </div>
+        </div>
+        <p style="margin-top:17px;color:#acc9de;font-size:12px">No se trata de programar frases literales. Se programan criterios, fuentes confiables, tono y condiciones de avance; luego se auditan conversaciones reales.</p>
+      </div>
+    </section>
+
+    <section class="block white" id="decision-ia">
+      <div class="wrap">
+        <div class="section-top center"><div class="eyebrow">05 · Árbol de decisión comercial</div><h2>El filtro se basa en intención,<br>no en llenar un formulario.</h2><p class="title-lead">La IA recoge tipo de equipo, aplicación, ciudad, plazo, presupuesto cuando exista, dudas y señal de compra. Pero hace preguntas contextuales y deja de calificar cuando la persona pide un paso comercial concreto.</p></div>
+        <div class="diagram-flow">
+          <div class="decision-start">IA responde: ¿qué necesita y quiere hacer ahora?</div>
+          <div class="decision-stem"></div>
+          <div class="decision-branches">
+            <div class="branch"><h4>Solo información</h4><p>Preguntas de proceso o equipos sin buscar comprar.</p><div class="branch-out">IA resuelve · No pasa a ventas</div></div>
+            <div class="branch warn"><h4>Compra futura</h4><p>Proyecto posible, horizonte lejano o intención aún no activa.</p><div class="branch-out">Educa y sigue con permiso</div></div>
+            <div class="branch green"><h4>Compra activa</h4><p>Necesidad concreta, disposición a revisar opciones o cotizar.</p><div class="branch-out">Cinthya → Gabriel</div></div>
+            <div class="branch warn"><h4>Compra + desconfianza</h4><p>Hay intención, pero miedo al pago, entrega o existencia.</p><div class="branch-out">Venta directa + Q&A opcional</div></div>
+            <div class="branch red"><h4>Error o urgencia</h4><p>IA no entiende, respuesta dudosa, el cliente pide persona o acción sensible.</p><div class="branch-out">Parar IA · Rescate humano</div></div>
+          </div>
+        </div>
+        <div class="human-override"><svg class="icon m"><use href="#i-shield"/></svg><p><strong>Requerimiento no negociable del piloto:</strong> poder tomar cualquier conversación, pausar la IA para ese contacto, evitar doble respuesta y registrar por qué ocurrió. Esta capacidad específica todavía debe probarse en GHL.</p></div>
+        <div class="stepribbon">
+          <div class="ribbon-step"><div class="top"><svg class="icon m"><use href="#i-message"/></svg> 1. Atiende</div><p>Resuelve la pregunta, reconoce el anuncio o equipo de origen y pregunta solo lo que falta.</p></div>
+          <div class="ribbon-step"><div class="top"><svg class="icon m"><use href="#i-search"/></svg> 2. Perfila</div><p>Necesidad, aplicación, ciudad, plazo, presupuesto opcional, objeción y verdadera señal de compra.</p></div>
+          <div class="ribbon-step orange"><div class="top"><svg class="icon m"><use href="#i-arrow"/></svg> 3. Decide</div><p>Resuelve, educa, pasa con Cinthya o activa rescate. Deja evidencia y siguiente responsable.</p></div>
+        </div>
+        <div class="rule"><strong>Lo que no aprobaremos sin comprobar:</strong> que un “sí”, una pregunta de precio, un registro a live o la falta de presupuesto determinen por sí solos la clasificación. Tampoco hay evidencia que permita garantizar que los leads enviados a Gabriel tengan 90 % de probabilidad de cierre.</div>
+      </div>
+    </section>
+
+    <section class="block light" id="venta">
+      <div class="wrap">
+        <div class="section-top center"><div class="eyebrow">06 · De lead perfilado a cierre</div><h2>El cliente pasa de la IA a Cinthya<br>y de Cinthya a Gabriel <span style="color:#d8862b">con contexto útil.</span></h2><p class="title-lead">Cinthya no vuelve a perfilar a todos desde cero. Comprueba la necesidad, encuentra una opción viable, explica el proceso y prepara el handoff. Gabriel recibe un caso concreto para cotizar y negociar.</p></div>
+        <div class="handoff-board">
+          <div class="work-card"><div class="work-head"><svg class="icon l"><use href="#i-bot"/></svg><div><h3>IA · Perfil del comprador</h3><span>Entrada a Pre-Hunter</span></div></div>
+            <div class="field-grid">
+              <div class="field"><span>Quién es</span><strong>Contacto identificado</strong></div><div class="field"><span>Equipo</span><strong>Tipo / capacidad</strong></div>
+              <div class="field"><span>Proyecto</span><strong>Aplicación y necesidad</strong></div><div class="field"><span>Ciudad</span><strong>Destino declarado</strong></div>
+              <div class="field"><span>Momento de compra</span><strong>Señal / horizonte</strong></div><div class="field"><span>Presupuesto</span><strong>Si lo compartió</strong></div>
+              <div class="field"><span>Objeción</span><strong>Texto y contexto</strong></div><div class="field"><span>Origen</span><strong>Campaña y conversación</strong></div>
+            </div><div class="done"><svg class="icon"><use href="#i-check"/></svg> Cinthya recibe solo interés activo</div><p class="footnote">Vista conceptual de campos; no representa un contacto real.</p>
+          </div>
+          <div class="handoff-arrow"><svg class="icon l"><use href="#i-arrow"/></svg></div>
+          <div class="work-card highlight"><div class="work-head"><svg class="icon l"><use href="#i-search"/></svg><div><h3>Cinthya · Valida y prepara</h3><span>Pre-Hunter selectivo</span></div></div>
+            <div class="unit-option"><svg class="icon m"><use href="#i-truck"/></svg><div><strong>Inventario MH / equipo en oferta</strong><p>Revisar condiciones y disponibilidad antes de presentarlo.</p><span class="chip orange">Validación requerida</span></div></div>
+            <div class="unit-option"><svg class="icon m"><use href="#i-search"/></svg><div><strong>Websourcing Live</strong><p>Explorar fuentes y categorías disponibles en USA.</p><span class="chip orange">Integración IA pendiente</span></div></div>
+            <div class="unit-option"><svg class="icon m"><use href="#i-truck"/></svg><div><strong>Logística estimada</strong><p>MH ya tiene información para estimar por equipo; hay que mapear reglas y validaciones.</p><span class="chip">Preliminar, no cotización</span></div></div>
+            <div class="done"><svg class="icon"><use href="#i-check"/></svg> Opción viable + contexto de compra</div>
+          </div>
+          <div class="handoff-arrow"><svg class="icon l"><use href="#i-arrow"/></svg></div>
+          <div class="work-card"><div class="work-head"><svg class="icon l"><use href="#i-user"/></svg><div><h3>Gabriel · Cierre comercial</h3><span>Primer cerrador piloto</span></div></div>
+            <div class="field-grid">
+              <div class="field"><span>Cliente / empresa</span><strong>Datos del contacto</strong></div><div class="field"><span>Necesidad</span><strong>Proyecto y equipo</strong></div>
+              <div class="field"><span>Opción concreta</span><strong>Fuente y verificación</strong></div><div class="field"><span>Logística</span><strong>Estimado + supuestos</strong></div>
+              <div class="field"><span>Confianza</span><strong>Dudas / evidencias enviadas</strong></div><div class="field"><span>Próxima acción</span><strong>Cotización / llamada</strong></div>
+            </div><div class="done"><svg class="icon"><use href="#i-check"/></svg> Cotiza → negocia → reserva / venta</div><p class="footnote">Si Gabriel devuelve el caso, registra por qué: falta intención, opción, datos o validación.</p>
+          </div>
+        </div>
+        <div class="quality-checks">
+          <div class="quality-item"><svg class="icon m"><use href="#i-check"/></svg><p><strong>La IA ya entendió al prospecto</strong><br>Evitar repetir preguntas.</p></div>
+          <div class="quality-item"><svg class="icon m"><use href="#i-check"/></svg><p><strong>Cinthya confirmó interés real</strong><br>Sin enviar consultas generales.</p></div>
+          <div class="quality-item"><svg class="icon m"><use href="#i-check"/></svg><p><strong>El equipo se verificó</strong><br>Sin prometer existencia o precio no confirmado.</p></div>
+          <div class="quality-item"><svg class="icon m"><use href="#i-check"/></svg><p><strong>Gabriel acepta o devuelve</strong><br>Eso enseña qué corregir antes del cierre.</p></div>
+        </div>
+        <div class="rule blue"><strong>Websourcing y logística:</strong> primero documentamos cómo Cinthya selecciona y valida alternativas; después probamos si la IA puede mostrar equipos previamente aprobados. Un anuncio público de USA no prueba disponibilidad, condición ni costo final en México.</div>
+      </div>
+    </section>
+
+    <section class="block white" id="live">
+      <div class="wrap">
+        <div class="section-top"><div class="eyebrow">07 · Educación que sí alimenta el embudo</div><h2>Un live semanal donde los prospectos<br><span style="color:#d98427">resuelvan lo que les impide comprar.</span></h2><p class="title-lead">No queremos cuatro temas desconectados. El miércoles habrá una guía institucional estable, y las dudas que la IA y los clientes registren determinarán qué preguntas se responden en vivo.</p></div>
+        <div class="live-layout">
+          <div class="live-screen" aria-label="Concepto visual del Q&A de Machinery Hunters">
+            <div class="live-screen-inner">
+              <div class="live-top"><span>MACHINERY HUNTERS · SESIÓN DE CONFIANZA</span><span class="live-badge">● LIVE</span></div>
+              <div class="live-center"><span class="play"><svg class="icon l" style="fill:#132e48;stroke:#132e48"><use href="#i-play"/></svg></span><div><h3>Hablemos de<br>comprar maquinaria</h3><p>Cinthya conduce · Invitados según agenda</p></div></div>
+              <div class="live-chatline"><span>¿Cómo aseguro mi pago?</span><span>¿Puedo inspeccionar?</span><span>¿Cómo llega a mi ciudad?</span></div>
+            </div>
+          </div>
+          <div class="live-path">
+            <div class="pathstep"><div class="num">1</div><div><strong>IA detecta la objeción</strong><p>Pregunta, miedo al pago o entrega, proceso, inspección, testimonios, necesidad de opciones.</p></div></div>
+            <div class="pathstep"><div class="num">2</div><div><strong>Invita y registra</strong><p>Prospecto identificado, pregunta previa, consentimiento y fuente de invitación.</p></div></div>
+            <div class="pathstep orange"><div class="num">3</div><div><strong>Miércoles · 30–45 minutos</strong><p>Cinthya conduce las cuatro sesiones previstas. Justin participa en una, Gabriel en otra, y dos quedan a cargo de Cinthya sola.</p></div></div>
+            <div class="pathstep"><div class="num">4</div><div><strong>Después del live, la IA verifica</strong><p>¿Se resolvió tu duda? ¿Quieres revisar equipos? Solo intención activa pasa con Cinthya.</p></div></div>
+          </div>
+        </div>
+        <div class="month-program" id="programa-live">
+          <div class="month-program-top">
+            <div><div class="eyebrow">Programa mensual propuesto · 4 encuentros</div><h3>Una anfitriona constante. Dos invitados. Cuatro oportunidades de resolver dudas.</h3><p>La base es siempre el Q&A de compra y confianza de Machinery Hunters. No se crean cuatro temas distintos por obligación: las dudas detectadas por la IA y las preguntas registradas marcan qué se profundiza en cada sesión.</p></div>
+            <span class="chip orange"><svg class="icon" style="width:14px;height:14px"><use href="#i-calendar"/></svg> Miércoles · Noviembre · 30–45 min</span>
+          </div>
+          <div class="month-grid">
+            <article class="month-card">
+              <div class="session-label"><span>Formato 01</span><span class="chip">Cinthya sola</span></div>
+              <div class="faces"><span class="face" title="Cinthya">C</span></div>
+              <h4>Q&A con Cinthya</h4><div class="host-text">Anfitriona y voz principal de la sesión</div>
+              <p>Recibe a quienes están conociendo MH o tienen dudas frecuentes sobre comprar maquinaria.</p>
+              <ul><li>Escoge las dudas más repetidas que reportó la IA.</li><li>Explica el proceso usando información y evidencias aprobadas.</li><li>Deja espacio para preguntas nuevas del público.</li></ul>
+              <div class="result"><b>Resultado buscado</b>Que el prospecto entienda cómo comprar y sepa cómo avanzar si ya busca un equipo.</div>
+            </article>
+            <article class="month-card guest">
+              <div class="session-label"><span>Formato 02</span><span class="chip orange">Invitado CEO</span></div>
+              <div class="faces"><span class="face" title="Cinthya">C</span><span class="face" title="Justin">J</span></div>
+              <h4>Cinthya + Justin</h4><div class="host-text">Cinthya conduce · Justin aporta respaldo institucional</div>
+              <p>Justin responde las preguntas que se benefician de su experiencia, autoridad y visión como imagen de MH.</p>
+              <ul><li>Contexto sobre MH y su forma de trabajar.</li><li>Dudas de confianza, verificación de la empresa y proceso de entrega.</li><li>Respuestas institucionales; casos y testimonios solo con material autorizado.</li></ul>
+              <div class="result"><b>Resultado buscado</b>Reforzar credibilidad sin desplazar la conversación hacia una venta forzada.</div>
+            </article>
+            <article class="month-card guest">
+              <div class="session-label"><span>Formato 03</span><span class="chip orange">Invitado cerrador</span></div>
+              <div class="faces"><span class="face" title="Cinthya">C</span><span class="face g" title="Gabriel">G</span></div>
+              <h4>Cinthya + Gabriel</h4><div class="host-text">Cinthya conduce · Gabriel explica el paso comercial</div>
+              <p>Gabriel participa para resolver dudas sobre lo que ocurre cuando alguien ya está evaluando una compra.</p>
+              <ul><li>Qué necesita un cliente para recibir una cotización formal.</li><li>Cómo se revisan opciones, condiciones e inspecciones.</li><li>Preguntas sobre negociación y próximos pasos, sin ofrecer condiciones individuales en público.</li></ul>
+              <div class="result"><b>Resultado buscado</b>Ayudar a compradores activos a tomar la siguiente decisión comercial.</div>
+            </article>
+            <article class="month-card">
+              <div class="session-label"><span>Formato 04</span><span class="chip">Cinthya sola</span></div>
+              <div class="faces"><span class="face" title="Cinthya">C</span></div>
+              <h4>Q&A con Cinthya</h4><div class="host-text">Anfitriona y seguimiento de dudas reales</div>
+              <p>Espacio abierto para resolver nuevas objeciones y preguntas que surgieron durante las campañas y sesiones previas.</p>
+              <ul><li>Retoma preguntas que siguen sin resolverse del todo.</li><li>Incluye dudas nuevas recopiladas por IA y registro.</li><li>Refuerza opciones de seguimiento según la intención de cada persona.</li></ul>
+              <div class="result"><b>Resultado buscado</b>Que nadie se quede sin un camino claro: resolver, seguir aprendiendo o revisar equipos.</div>
+            </article>
+          </div>
+          <div class="month-rule"><svg class="icon m"><use href="#i-shield"/></svg><p><strong>Estos son cuatro formatos, no semanas asignadas.</strong> El orden concreto de los miércoles y la disponibilidad de Justin y Gabriel se confirmarán con sus agendas. Cinthya participa en los cuatro. La categoría o equipo destacado depende de lo que se esté promocionando y de las preguntas reales, no de un calendario de temas inventado.</p></div>
+          <div class="stable-guide">
+            <h4>Estructura que se repite en las cuatro sesiones</h4>
+            <div class="stable-steps">
+              <div class="stable-step"><div class="number">01</div><b>Bienvenida breve</b><p>Presentación de MH, anfitriona e invitado si lo hay.</p></div>
+              <div class="stable-step"><div class="number">02</div><b>Cómo se compra</b><p>Recordatorio claro del proceso, cotización y revisiones.</p></div>
+              <div class="stable-step"><div class="number">03</div><b>Dudas recogidas por IA</b><p>Preguntas priorizadas según frecuencia y bloqueo comercial.</p></div>
+              <div class="stable-step"><div class="number">04</div><b>Q&A del público</b><p>Dejar espacio real para preguntas sin seguir un guion rígido.</p></div>
+              <div class="stable-step"><div class="number">05</div><b>Siguiente paso</b><p>Invitar a revisar equipos o continuar educación según intención.</p></div>
+            </div>
+          </div>
+          <div class="live-ops">
+            <div class="live-ops-card"><div class="topline"><svg class="icon m"><use href="#i-bot"/></svg> Antes · IA + registro</div><p>Detectar quién necesita resolver dudas, guardar la pregunta y categoría, invitar con consentimiento y registrar la fuente. Carel revisa el resumen de objeciones; el equipo de contenido prepara difusión y material autorizado.</p><span class="chip">Preguntas preparadas, no tema impuesto</span></div>
+            <div class="live-ops-card"><div class="topline"><svg class="icon m"><use href="#i-video"/></svg> Durante · Cinthya + invitado</div><p>Cinthya conduce las cuatro sesiones. Se combinan proceso de compra, evidencias, preguntas priorizadas y dudas en vivo. Casos privados y negociaciones particulares se derivan a conversación individual.</p><span class="chip">30–45 minutos · Q&A abierto</span></div>
+            <div class="live-ops-card"><div class="topline"><svg class="icon m"><use href="#i-arrow"/></svg> Después · IA + comercial</div><p>La IA confirma si se resolvió la duda y si la persona quiere revisar opciones. Interés activo pasa a Cinthya; Gabriel interviene cuando haya oportunidad lista. Quien solo aprende no se envía a cierre.</p><span class="chip">Medir registro, duda, intención y avance</span></div>
+          </div>
+        </div>
+        <div class="calendar-row">
+          <div class="weekday"><strong>Lunes · Detectar</strong><p>Revisar leads del fin de semana y dudas de la IA.</p></div>
+          <div class="weekday"><strong>Martes · Preparar</strong><p>Agrupar preguntas, validar evidencia e invitar.</p></div>
+          <div class="weekday live"><strong>Miércoles · LIVE</strong><p>Q&A de 30–45 min desde noviembre.</p></div>
+          <div class="weekday"><strong>Jueves · Recuperar</strong><p>La IA pregunta si quedó resuelta la duda.</p></div>
+          <div class="weekday"><strong>Viernes · Multiplicar</strong><p>Clips, aprendizajes y nuevas pruebas de contenido.</p></div>
+        </div>
+        <div class="grid2 mt28">
+          <div class="panel" style="padding:22px"><span class="chip green">Ruta directa</span><h3 class="mt12">Si está listo para comprar, avanza hoy.</h3><p style="font-size:12px;margin-top:8px">Cinthya y Gabriel siguen con el equipo y la cotización. El live es un refuerzo de confianza opcional, no una espera obligatoria.</p></div>
+          <div class="panel" style="padding:22px"><span class="chip orange">Ruta educativa</span><h3 class="mt12">Si todavía no quiere comprar, educamos.</h3><p style="font-size:12px;margin-top:8px">Puede registrarse, hacer preguntas y volver a la IA cuando esté listo. Asistir al live no lo convierte automáticamente en oportunidad comercial.</p></div>
+        </div>
+        <div class="rule blue"><strong>Distribución propuesta:</strong> YouTube como sede principal y archivo educativo; Facebook, Instagram y TikTok para invitar y reutilizar clips. Plataforma, horario y mecanismo de registro aún por confirmar. Visualizaciones públicas no equivalen a asistentes identificados en GHL. Referencias de otros clientes solo con permiso.</div>
+      </div>
+    </section>
+
+    <section class="block light" id="control">
+      <div class="wrap">
+        <div class="section-top center"><div class="eyebrow">08 · Supervisión y aprendizaje</div><h2>La IA debe tener un humano detrás.<br><span style="color:#2676ad">Y cada intervención debe enseñarnos algo.</span></h2><p class="title-lead">La automatización no es una caja negra. Carel supervisa, Cinthya resuelve casos comerciales y se documentan fallas. GHL debe mostrar qué hizo el agente, qué hizo el humano y quién quedó responsable.</p></div>
+        <div class="guardrails">
+          <div class="guard warn"><svg class="icon l"><use href="#i-alert"/></svg><div><h3>Rescate inmediato</h3><p>Respuesta técnica dudosa, mensaje repetitivo, promesa no autorizada, solicitud expresa de humano o conversación de alta intención. Se pausa la IA por contacto, se asigna a una persona y se conserva el historial. La pausa debe probarse técnicamente.</p></div></div>
+          <div class="guard"><svg class="icon l"><use href="#i-refresh"/></svg><div><h3>Control de calidad</h3><p>Cada rescate deja motivo, gravedad, tiempo, etapa y resolución. Carel revisa patrones y autoriza cambios de instrucciones y fuentes antes de volver a probar al agente.</p></div></div>
+          <div class="guard"><svg class="icon l"><use href="#i-inbox"/></svg><div><h3>Sin oportunidades huérfanas</h3><p>Todo handoff tiene estado, persona receptora y siguiente paso. Gabriel acepta o devuelve oportunidades y explica el motivo. Los casos sin respuesta se detectan y escalan.</p></div></div>
+          <div class="guard"><svg class="icon l"><use href="#i-shield"/></svg><div><h3>Confianza, datos y permisos</h3><p>Canales, consentimiento, privacidad y posibilidad de detener comunicaciones. La IA no inventa inventario, precios, logística, inspecciones, promociones ni condiciones comerciales.</p></div></div>
+        </div>
+        <div class="feedback-loop" style="margin-top:18px"><svg class="icon m"><use href="#i-refresh"/></svg><p><strong>Aprendizaje real:</strong> mensajes IA → revisión de Carel/Cinthya → aceptación o devolución de Gabriel → causa de cierre/no cierre → mejora del filtro, contenido, opciones y proceso. La prueba de reactivación ya explorada en GHL no valida automáticamente este flujo más amplio.</p></div>
+      </div>
+    </section>
+
+    <section class="block white" id="metricas">
+      <div class="wrap">
+        <div class="section-top"><div class="eyebrow">09 · Todo será medible</div><h2>La meta no es “más leads”.<br><span style="color:#d98427">La meta es un sistema que aporte ventas.</span></h2><p class="title-lead">Mediremos marketing, IA, operación humana y cierre por separado, sin perder la conexión de la misma oportunidad. Los indicadores de esta vista son definiciones por diseñar; las barras son ilustrativas, no resultados.</p></div>
+        <div class="metric-funnel">
+          <div class="metric-column"><svg class="icon l"><use href="#i-campaign"/></svg><h3>01 · Marketing</h3><p>Campañas, alcance, mensajes, leads por fuente, costo, creatividad y categoría.</p><div class="metric-bar"></div><div class="metric-state">Línea base por validar</div></div>
+          <div class="metric-column"><svg class="icon l"><use href="#i-bot"/></svg><h3>02 · IA</h3><p>Conversaciones atendidas, intención real, descartes correctos, falsos descartes y rescates.</p><div class="metric-bar"></div><div class="metric-state">Calidad del filtro por auditar</div></div>
+          <div class="metric-column"><svg class="icon l"><use href="#i-search"/></svg><h3>03 · Pre-Hunter</h3><p>Leads aceptados, opciones verificadas, minutos por caso y devoluciones.</p><div class="metric-bar"></div><div class="metric-state">Capacidad de Cinthya por medir</div></div>
+          <div class="metric-column"><svg class="icon l"><use href="#i-chart"/></svg><h3>04 · Cerrador</h3><p>Handoffs aceptados, cotizaciones, negociaciones, reservas, ventas y días de cierre.</p><div class="metric-bar"></div><div class="metric-state">Conversión observada por medir</div></div>
+        </div>
+        <div class="grid2 mt28">
+          <div class="panel" style="padding:25px"><span class="chip green">Resultado de negocio</span><h3 style="margin:13px 0;font-size:23px">Ventas híbridas netas + ventas del proceso actual = resultado MH.</h3><p style="font-size:12px">Compararemos mes en que entró cada lead con mes en que cerró, para no perder ventas de ciclos largos ni atribuir al híbrido lo que venía de otro proceso. Los márgenes también importan.</p></div>
+          <div class="panel" style="padding:25px"><span class="chip orange">Alerta de calidad</span><h3 style="margin:13px 0;font-size:23px">Un filtro muy estricto puede perder compradores.</h3><p style="font-size:12px">No basta con que Gabriel acepte todos los casos que recibe si la IA descartó a compradores reales. Auditaremos muestras de conversaciones informativas, futuras y rechazadas.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block light" id="crecimiento">
+      <div class="wrap">
+        <div class="section-top center"><div class="eyebrow">10 · Del piloto al vendedor híbrido replicable</div><h2>Empezamos con tres roles.<br>Aprendemos para llegar a <span style="color:#d98427">IA + cerrador.</span></h2><p class="title-lead">Cinthya es necesaria para descubrir el proceso y entrenar el método. Con evidencia, algunas funciones repetibles podrían pasar al agente; Gabriel debe documentar lo que hace para que otros puedan cerrar con el mismo sistema.</p></div>
+        <div class="growthline">
+          <div class="growth"><small>FASE 01</small><h3>Descubrir</h3><p>Instrumentar una cohorte de campañas. Revisar intención, errores, handoff y primeras cotizaciones.</p></div>
+          <div class="growth"><small>FASE 02</small><h3>Sostener</h3><p>Repetir resultados con otra cohorte, sin sobrecargar a Cinthya ni debilitar el filtro.</p></div>
+          <div class="growth"><small>FASE 03</small><h3>Optimizar</h3><p>Detectar cuello de botella y automatizar una tarea cuya calidad y rescate ya sean comprobables.</p></div>
+          <div class="growth"><small>FASE 04</small><h3>Replicar</h3><p>Formar un segundo cerrador con el método documentado y comparar calidad y ventas.</p></div>
+        </div>
+        <div class="grid2 mt28">
+          <div class="panel" style="padding:24px;background:#eff7fc"><h3>Modelo de inicio · Preacordado</h3><div class="stage-flow mt20"><div class="stage-step" style="background:#e7f1fa;color:#204e77;border-color:#cddfeb"><svg class="icon m"><use href="#i-bot"/></svg><b>IA</b></div><span class="arch-arrow" style="color:#d5892d">→</span><div class="stage-step" style="background:#fff0dc;color:#9c641e;border-color:#edcfa8"><svg class="icon m"><use href="#i-user"/></svg><b>Cinthya</b></div><span class="arch-arrow" style="color:#d5892d">→</span><div class="stage-step" style="background:#e7f1fa;color:#204e77;border-color:#cddfeb"><svg class="icon m"><use href="#i-check"/></svg><b>Gabriel</b></div></div><p style="font-size:12px;margin-top:15px">Necesario para documentar el perfilado, selección de opciones, cotización y cierre.</p></div>
+          <div class="panel" style="padding:24px;background:#fff7eb"><h3>Modelo objetivo · A validar</h3><div class="stage-flow mt20"><div class="stage-step" style="background:#e7f1fa;color:#204e77;border-color:#cddfeb"><svg class="icon m"><use href="#i-bot"/></svg><b>IA más capaz</b></div><span class="arch-arrow" style="color:#d5892d">→</span><div class="stage-step" style="background:#fff0dc;color:#9c641e;border-color:#edcfa8"><svg class="icon m"><use href="#i-check"/></svg><b>Cerrador replicable</b></div></div><p style="font-size:12px;margin-top:15px">Con supervisión, abastecimiento y rescate humano. Reducir el Pre-Hunter requiere evidencia, no una fecha arbitraria.</p></div>
+        </div>
+        <div class="rule"><strong>Escalera de ventas:</strong> 3→3→5 o 5→5→8 son ejemplos que surgieron para visualizar el crecimiento, no compromisos. La meta real del híbrido dependerá de cohortes, inversión, margen y tiempo de cierre. La meta global MH sigue siendo sostener 15 equipos vendidos al mes.</div>
+      </div>
+    </section>
+
+    <section class="block white" id="pendientes">
+      <div class="wrap">
+        <div class="section-top"><div class="eyebrow">11 · Avances de diseño</div><h2>Qué ya está en la mesa<br>y qué necesitamos comprobar.</h2><p class="title-lead">Esto es un mapa de decisiones, no una aprobación global de tecnología, gasto o contratación.</p></div>
+        <div class="decision-list">
+          <div class="decision-item"><svg class="icon m"><use href="#i-check"/></svg><div><h4>Modelo híbrido de entrada</h4><p>IA primero → Cinthya Pre-Hunter → Gabriel cerrador; proceso actual se conserva.</p><span class="chip green">Preacordado</span></div></div>
+          <div class="decision-item"><svg class="icon m"><use href="#i-video"/></svg><div><h4>Marketing con rostros claros</h4><p>Justin institucional, Cinthya presencia diaria, producción/publicación por equipo de contenido.</p><span class="chip green">Preacordado conceptualmente</span></div></div>
+          <div class="decision-item"><svg class="icon m"><use href="#i-calendar"/></svg><div><h4>Programa de confianza: cuatro lives</h4><p>Miércoles desde noviembre, 30–45 minutos: dos con Cinthya sola, uno con Justin y otro con Gabriel. Cinthya conduce todos; horario y miércoles específicos pendientes.</p><span class="chip green">Distribución de partida preacordada</span></div></div>
+          <div class="decision-item"><svg class="icon m"><use href="#i-bot"/></svg><div><h4>Árbol IA y handoff</h4><p>Casos, etiquetas, preguntas, aceptación por Cinthya y devolución de Gabriel.</p><span class="chip orange">Diseño operativo por validar</span></div></div>
+          <div class="decision-item"><svg class="icon m"><use href="#i-truck"/></svg><div><h4>Opciones y logística</h4><p>Websourcing Live y datos internos existen; faltan campos, fuente, vigencia y validación.</p><span class="chip orange">Mapeo / integración pendiente</span></div></div>
+          <div class="decision-item"><svg class="icon m"><use href="#i-campaign"/></svg><div><h4>Campañas de noviembre</h4><p>Inversión adicional, categoría, volumen, oferta, mix económico y cohorte piloto.</p><span class="chip orange">Esperar información real</span></div></div>
+        </div>
+        <div class="more-details">
+          <details><summary>Ver requisitos operativos del agente y de GHL</summary><div class="detail-body"><ul><li>Identificar canal, anuncio, categoría, intención, proyecto, ciudad, horizonte y presupuesto solo si lo comparte.</li><li>Clasificar información, futuro, compra activa, objeción de confianza, excepción humana y sin respuesta.</li><li>Conservar historial, evidencia de clasificación, hora y persona responsable de cada traspaso.</li><li>Probar pausa por contacto, evitar mensajes simultáneos IA-humano, permisos y seguimiento limitado por canal.</li><li>Registrar errores y falsos descartes, no entrenar al agente automáticamente con respuestas sin revisar.</li></ul></div></details>
+          <details><summary>Ver lo que Cinthya debe documentar para que IA mejore</summary><div class="detail-body"><ul><li>Qué datos de IA fueron útiles y cuáles faltaron.</li><li>Qué fuente consultó para encontrar equipos, criterios de selección y motivo de descarte de opciones.</li><li>Qué información de logística existe, cómo se estima y quién valida antes de presentarla.</li><li>Qué objeciones resolvió y con qué evidencia autorizada.</li><li>Tiempo por oportunidad, aceptación del lead y resultado de envío a Gabriel.</li></ul></div></details>
+          <details><summary>Ver controles para el Q&A y contenidos</summary><div class="detail-body"><ul><li>Identidad de Cinthya por construir y elementos aprobados de la marca personal de Justin por integrar.</li><li>Agenda viable: grabación diaria de historias, campañas por bloques, un live semanal y edición/difusión por el equipo.</li><li>Cuatro formatos mensuales: dos Cinthya sola, uno Cinthya + Justin, uno Cinthya + Gabriel. Fechas específicas y horario por confirmar.</li><li>Registro previo de preguntas y consentimiento; distinguir asistentes identificados de vistas anónimas.</li><li>Guía recurrente, preguntas detectadas por la IA y espacio abierto; no cambiar de temática arbitrariamente cada semana.</li><li>IA revisa la intención después del live y solo entrega oportunidades activas a Cinthya. Nunca se retrasa una cotización por esperar una sesión.</li></ul></div></details>
+          <details><summary>Ver métricas que deben construirse desde la primera campaña</summary><div class="detail-body"><ul><li>Marketing: gasto, creatividad, fuente, leads y conversaciones iniciadas.</li><li>IA: tiempo de primera atención, intención, clasificación correcta, reprocesos, falsas exclusiones y rescates.</li><li>Cinthya: aceptación de leads, opciones verificadas, tiempo, devoluciones y motivos.</li><li>Gabriel: aceptación del brief, cotizaciones, negociaciones, reservas, ventas, tiempo de cierre y causas de pérdida.</li><li>Live: registrados, preguntas, asistencia identificable, dudas resueltas, nueva intención comercial.</li><li>Economía: gasto real, costo humano, margen por equipo y ventas atribuibles por cohorte y mes de cierre.</li></ul></div></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="block light" id="responsabilidades">
+      <div class="wrap">
+        <div class="section-top center"><div class="eyebrow">12 · Quién hace que esto funcione</div><h2>Dirección define el negocio.<br><span style="color:#256da4">Carel diseña y mejora el sistema.</span><br>Gabriel convierte el proceso en ventas.</h2><p class="title-lead">Al final, el modelo debe tener dueños claros. Cada papel tiene un resultado específico, y ninguno sustituye al resto.</p></div>
+        <div class="role-hero">
+          <div class="role-card primary"><svg class="icon l"><use href="#i-shield"/></svg><div class="call-label mt12" style="color:#b2d2ee">DIRECCIÓN · JUSTIN RITCHIE</div><h3>Patrocinio y decisiones de negocio</h3><p>Dirección aprueba recursos, inversión, condiciones económicas y criterios para continuar, ajustar o escalar. Justin, además, representa la voz institucional que conectará su marca personal con MH.</p><ul><li>Definir mix de equipos y márgenes que hacen viable crecer.</li><li>Resolver disponibilidad de Cinthya, Gabriel y áreas de soporte.</li><li>Validar presupuesto de nuevas campañas y criterios de éxito.</li><li>Autorizar decisiones comerciales y escalamiento del piloto.</li></ul><span class="chip dark mt20">Aprueba el marco de negocio</span></div>
+          <div class="role-card"><svg class="icon l"><use href="#i-chart"/></svg><div class="call-label mt12">CAREL · DIRECCIÓN DE ESTRATEGIA Y ORQUESTACIÓN</div><h3>Diseño integral, supervisión y aprendizaje</h3><p>Tu rol es conectar la presencia de marca, campañas, flujo IA, operación de Cinthya y método de Gabriel. No es absorber edición, filtro manual de todos los leads ni cierre.</p><ul><li>Definir estrategia, calendario, identidad de contenido y experimentos.</li><li>Diseñar y auditar clasificación de IA y rescates humanos.</li><li>Acompañar a Cinthya y documentar tareas que podrían automatizarse.</li><li>Conectar abastecimiento, GHL, contenido, marketing y comercial.</li><li>Evaluar datos y presentar a Dirección qué sostener, cambiar o escalar.</li></ul><span class="chip mt20">Dueña del método y de su mejora</span></div>
+        </div>
+        <div class="role-support">
+          <div class="role-card"><svg class="icon m"><use href="#i-video"/></svg><h3>Cinthya</h3><p>Rostro cotidiano, Q&A y Pre-Hunter. Valida interés, equipo, proceso, estimado y ficha para Gabriel. Documenta cómo trabaja.</p><span class="chip orange mt12">Contenido + filtro comercial</span></div>
+          <div class="role-card"><svg class="icon m"><use href="#i-check"/></svg><h3>Gabriel</h3><p>Primer cerrador: recibe cliente y equipo listos, cotiza formalmente, negocia, cierra o devuelve con motivo y deja el método replicable.</p><span class="chip orange mt12">Cotización + cierre</span></div>
+          <div class="role-card"><svg class="icon m"><use href="#i-campaign"/></svg><h3>Equipo de contenido y difusión</h3><p>Edición, publicación, distribución, clips, adaptación de anuncios y ejecución del calendario acordado.</p><span class="chip mt12">Producción y distribución</span></div>
+          <div class="role-card"><svg class="icon m"><use href="#i-truck"/></svg><h3>Abastecimiento y soporte técnico</h3><p>Verificación de equipo, disponibilidad, condiciones, lógica logística, fuentes Websourcing y controles de GHL. Responsables exactos por confirmar.</p><span class="chip mt12">Información confiable</span></div>
+        </div>
+        <div class="closing-cta"><div><h3>El siguiente avance: construir la lógica IA y el handoff real.</h3><p>1. Elegir campaña piloto · 2. Probar árbol IA y rescate · 3. Definir brief Cinthya → Gabriel · 4. Mapear opciones/logística · 5. Instrumentar resultados desde el inicio.</p></div><a href="#ia-demo" class="button">Volver a ver la experiencia IA <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+        <div class="rule blue"><strong>Hasta aquí, ningún número ha sido inventado:</strong> 15 ventas es la meta total conocida; el promedio de ≈11 proviene de la conversación y requiere validación. Presupuesto, metas del piloto, integraciones, disponibilidad y agenda final permanecen pendientes. Las tasas comerciales se calcularán después de observar el proceso.</div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap"><b>MACHINERY HUNTERS · MARKETING + IA + VENTAS</b><p>Versión visual del diseño estratégico · 26 de octubre de 2026 · Ninguna meta económica, integración ni contratación pendiente se presenta como aprobada.</p></div></footer>
+  <script>
+    (function(){
+      var fill=document.getElementById('progress');
+      function update(){var max=document.documentElement.scrollHeight-window.innerHeight;fill.style.width=(max>0?Math.min(100,Math.max(0,window.scrollY/max*100)):100)+'%';}
+      window.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);
+      document.getElementById('print').addEventListener('click',function(){window.print();});
+      var caseButtons=[].slice.call(document.querySelectorAll('[data-case]'));
+      var casePanels=[].slice.call(document.querySelectorAll('[data-case-panel]'));
+      caseButtons.forEach(function(button){
+        button.addEventListener('click',function(){
+          var selected=button.getAttribute('data-case');
+          caseButtons.forEach(function(b){
+            var on=b===button;
+            b.classList.toggle('on',on);
+            b.setAttribute('aria-pressed',String(on));
+          });
+          casePanels.forEach(function(panel){
+            panel.classList.toggle('active',panel.getAttribute('data-case-panel')===selected);
+          });
+        });
+      });
+      var openedForPrint=[];
+      window.addEventListener('beforeprint',function(){
+        openedForPrint=[].slice.call(document.querySelectorAll('details')).filter(function(d){return !d.open;});
+        openedForPrint.forEach(function(d){d.open=true;});
+      });
+      window.addEventListener('afterprint',function(){
+        openedForPrint.forEach(function(d){d.open=false;});
+        openedForPrint=[];
+      });
+      update();
+    })();
+  </script>
+</body>
+</html>
